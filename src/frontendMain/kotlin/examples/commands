@@ -1,0 +1,3 @@
+./gradlew clean zip                   (on Linux)
+gradlew.bat clean zip                 (on Windows)
+
