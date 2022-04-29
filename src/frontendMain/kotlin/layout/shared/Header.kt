@@ -1,10 +1,12 @@
 package layout.shared
 
+import View
 import ViewState
-import io.kvision.core.*
-import io.kvision.html.*
-import io.kvision.utils.auto
-import io.kvision.utils.px
+import io.kvision.core.Container
+import io.kvision.html.button
+import io.kvision.html.link
+import io.kvision.html.nav
+
 
 fun Container.headerNav(state: ViewState) {
     nav(className = "navbar-blue") {

@@ -16,11 +16,16 @@ object DatabaseConfig {
     private val dbUser = appConfig.property("db.dbUser").getString()
     private val dbPassword = appConfig.property("db.dbPassword").getString()
 
+    /**
+     * Currently only a connect function but is supposed to handle the migration also
+     */
     fun connectAndMigrate() {
-        val pool = hikari()
-        Database.connect(pool)
+        Database.connect(hikari())
     }
 
+    /**
+     * Database connection function
+     */
     private fun hikari(): HikariDataSource {
         val config = HikariConfig()
         config.driverClassName = "org.postgresql.Driver"
@@ -34,6 +39,10 @@ object DatabaseConfig {
         return HikariDataSource(config)
     }
 
+    /**
+     * Suspend function, used to query data.
+     * Will invoke a suspended transaction
+     */
     suspend fun <T> dbQuery(block: suspend () -> T): T =
         newSuspendedTransaction(Dispatchers.IO) { block() }
 

@@ -12,11 +12,13 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.util.pipeline.*
 import kotlinx.html.*
 import routes.healthCategoryRouting
 import service.HealthCategoryService
 
+/**
+ * part of [Application.helloWorld] will be removed soon
+ */
 fun HTML.index() {
     head {
         title("Hello from Ktor!")
@@ -32,7 +34,9 @@ fun HTML.index() {
     }
 }
 
+
 private val appConfig = HoconApplicationConfig(ConfigFactory.load())
+
 
 fun main() {
 
@@ -45,6 +49,10 @@ fun main() {
     }.start(wait = true)
 }
 
+/**
+ * Function used to initialize the Server,
+ * install routes and connect to the database
+ */
 fun Application.module() {
 
     install(ContentNegotiation){
@@ -58,6 +66,9 @@ fun Application.module() {
     }
 }
 
+/**
+ * Test function, will be removed soon
+ */
 fun Application.helloWorld(){
 
     routing {
@@ -71,8 +82,9 @@ fun Application.helloWorld(){
     }
 }
 
-fun Route.static(remotePath: String, configure: Route.() -> Unit): Route = route(remotePath, configure)
-inline val PipelineContext<*, ApplicationCall>.call: ApplicationCall get() = context
+/**
+ * Copied from kotlinx, does not work otherwise
+ */
 suspend fun ApplicationCall.respondHtml(status: HttpStatusCode = HttpStatusCode.OK, block: HTML.() -> Unit) {
     respond(HtmlContent(status, block))
 }

@@ -12,10 +12,16 @@ import tables.HealthCategoryTable.cat_title
 
 class HealthCategoryService {
 
+    /**
+     * Query all categories from the database
+     */
     suspend fun getAllCategories() = dbQuery {
         HealthCategoryTable.selectAll().map { toHealthCategory(it) }
     }
 
+    /**
+     * Convert a table entry to a concrete object
+     */
     private fun toHealthCategory(row: ResultRow) =
         HealthCategory(
             cat_id = row[cat_id],

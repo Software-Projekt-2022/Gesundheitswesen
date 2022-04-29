@@ -5,6 +5,9 @@ import io.kvision.html.div
 import io.kvision.html.h1
 import io.kvision.html.p
 
+/**
+ * Simple Placeholder at the Moment
+ */
 fun Container.banner(bannerText: String){
     div(className = "home-page") {
         div(className = "banner") {

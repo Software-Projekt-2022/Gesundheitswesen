@@ -6,14 +6,14 @@ import kotlinx.coroutines.SupervisorJob
 
 object ViewManager : CoroutineScope by CoroutineScope(Dispatchers.Default + SupervisorJob()) {
 
-    fun initialize() {
-        routing.initialize().resolve()
-        afterInitialize()
-    }
+    fun initialize()  = routing.initialize().resolve()
 
-    private fun afterInitialize(){
-        viewStore.dispatch(ViewAction.HomePage)
-    }
+    // Routing Function
+    fun homePage() =  viewStore.dispatch(ViewAction.HomePage)
+    fun categoryPage() = viewStore.dispatch(ViewAction.CategoryPage)
+    fun emergencyPage() = viewStore.dispatch(ViewAction.EmergencyPage)
+    fun cyberCity() = viewStore.dispatch(ViewAction.CyberCity)
+
 
     private val routing = Navigo(null, true, "#")
 
@@ -21,9 +21,5 @@ object ViewManager : CoroutineScope by CoroutineScope(Dispatchers.Default + Supe
 
     val viewStore = createReduxStore(::viewReducer, ViewState())
 
-    fun homePage() = run { viewStore.dispatch(ViewAction.HomePage) }
-    fun categoryPage() = run { viewStore.dispatch(ViewAction.CategoryPage) }
-    fun emergencyPage() = run { viewStore.dispatch(ViewAction.EmergencyPage) }
-    fun cyberCity() = run { viewStore.dispatch(ViewAction.CyberCity) }
 
 }

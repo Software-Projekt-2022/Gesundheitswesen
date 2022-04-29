@@ -18,8 +18,12 @@ import layout.pages.emergencyPage
 import layout.pages.homePage
 import layout.shared.headerNav
 
+/**
+ * Main class to start the frontend Application
+ */
 class App : Application(){
 
+    // Linking/bind an init all necessary components and links
     override fun start() {
         Routing.init()
         Pace.init(io.kvision.require("pace-progressbar/themes/blue/pace-theme-bounce.css"))

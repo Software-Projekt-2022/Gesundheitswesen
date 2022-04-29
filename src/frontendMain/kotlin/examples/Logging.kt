@@ -2,6 +2,9 @@ package examples
 
 val DEBUG = true
 
+/**
+ * not in use now
+ */
 fun debug(s: String, color: LogType? = null) {
     if (DEBUG) {
         console.log("%c $s", when (color) {
