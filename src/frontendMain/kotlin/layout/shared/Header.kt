@@ -8,21 +8,21 @@ import io.kvision.utils.px
 
 fun Container.headerNav(state: ViewState) {
     nav(className = "navbar-blue") {
-        button(
+        link(
             View.Home.title,
-            View.Home.url,
+            "#${View.Home.url}",
             className = state.homeLinkClassName
         )
 
-        button(
+        link(
             View.Categories.title,
-            View.Categories.url,
+            "#${View.Categories.url}",
             className = state.categoriesClassName
         )
 
-        button(
+        link(
             View.EmergencyContact.title,
-            View.EmergencyContact.url,
+            "#${View.EmergencyContact.url}",
             className = state.emergencyLinkClassName
         )
 

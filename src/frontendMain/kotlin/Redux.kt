@@ -15,13 +15,15 @@ data class ViewState (
 }
 
 fun viewReducer(state: ViewState, action: ViewAction): ViewState = when(action){
-    ViewAction.HomePage -> state.copy(view = View.Home)
-    ViewAction.Categories -> state.copy(view = View.Categories)
-    ViewAction.EmergencyContact -> state.copy(view = View.EmergencyContact)
+    is ViewAction.HomePage -> state.copy(view = View.Home)
+    is ViewAction.CategoryPage -> state.copy(view = View.Categories)
+    is ViewAction.EmergencyPage -> state.copy(view = View.EmergencyContact)
+    is ViewAction.CyberCity -> state.copy(view = View.CyberCity)
 }
 
 sealed class ViewAction : RAction {
     object HomePage: ViewAction()
-    object Categories: ViewAction()
-    object EmergencyContact : ViewAction()
+    object CategoryPage: ViewAction()
+    object EmergencyPage : ViewAction()
+    object CyberCity : ViewAction()
 }
