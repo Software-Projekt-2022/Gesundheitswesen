@@ -25,6 +25,7 @@ fun viewReducer(state: ViewState, action: ViewAction): ViewState = when(action){
     is ViewAction.CategoryPage -> state.copy(view = View.Categories)
     is ViewAction.EmergencyPage -> state.copy(view = View.EmergencyContact)
     is ViewAction.CyberCity -> state.copy(view = View.CyberCity)
+    is ViewAction.SearchListPage -> state.copy(view = View.SearchListPage)
 }
 
 sealed class ViewAction : RAction {
@@ -32,4 +33,5 @@ sealed class ViewAction : RAction {
     object CategoryPage: ViewAction()
     object EmergencyPage : ViewAction()
     object CyberCity : ViewAction()
+    object SearchListPage : ViewAction()
 }

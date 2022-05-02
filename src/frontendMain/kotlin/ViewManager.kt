@@ -12,6 +12,7 @@ object ViewManager : CoroutineScope by CoroutineScope(Dispatchers.Default + Supe
     fun homePage() =  viewStore.dispatch(ViewAction.HomePage)
     fun categoryPage() = viewStore.dispatch(ViewAction.CategoryPage)
     fun emergencyPage() = viewStore.dispatch(ViewAction.EmergencyPage)
+    fun searchListPage(stringParameter: Any?) = viewStore.dispatch(ViewAction.SearchListPage)
     fun cyberCity() = viewStore.dispatch(ViewAction.CyberCity)
 
 
@@ -20,6 +21,5 @@ object ViewManager : CoroutineScope by CoroutineScope(Dispatchers.Default + Supe
     fun redirect(view: View) = routing.navigate(view.url)
 
     val viewStore = createReduxStore(::viewReducer, ViewState())
-
 
 }
