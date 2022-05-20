@@ -12,18 +12,19 @@ on:
 #2
 env:
   REGISTRY: "registry.digitalocean.com/cybercityregistry"
-  IMAGE_NAME: "gesundheitswesen"
+  IMAGE_NAME_BA: "gesundheitswesen_backend:latest"
+  IMAGE_NAME_FR: "gesundheitswesen_frontend:latest"
 
 #3
 jobs:
-  build_and_push:
+  build_and_push_frontend:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout to repo
         uses: actions/checkout@v2
 
       - name: Build container image
-        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) .
+        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME_FR) .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -34,10 +35,33 @@ jobs:
         run: doctl registry login --expiry-seconds 600
 
       - name: Remove all old images
-        run: if [ ! - z "(doctl registry repository list | grep "$(echo $IMAGE_NAME)")" ]; then doctl registry repository delete-manifest $(echo $IMAGE_NAME) $(doctl registry repository list-tags $(echo $IMAGE_NAME) | grep -o "sha.*") --force; else echo "No repository"; fi
+        run: if [ ! - z "(doctl registry repository list | grep "$(echo $IMAGE_NAME_FR)")" ]; then doctl registry repository delete-manifest $(echo $IMAGE_NAME_FR) $(doctl registry repository list-tags $(echo $IMAGE_NAME_FR) | grep -o "sha.*") --force; else echo "No repository"; fi
 
       - name: Push image to DigitalOcean Container Registry
-        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
+        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME_FR)
+  
+  build_and_push_backend:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout to repo
+        uses: actions/checkout@v2
+
+      - name: Build container image
+        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME_BA) .
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_ACCESS }}
+
+      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+        run: doctl registry login --expiry-seconds 600
+
+      - name: Remove all old images
+        run: if [ ! - z "(doctl registry repository list | grep "$(echo $IMAGE_NAME_BA)")" ]; then doctl registry repository delete-manifest $(echo $IMAGE_NAME_BA) $(doctl registry repository list-tags $(echo $IMAGE_NAME_BA) | grep -o "sha.*") --force; else echo "No repository"; fi
+
+      - name: Push image to DigitalOcean Container Registry
+        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME_BA)
 
   deploy:
     runs-on: ubuntu-20.04
