@@ -24,8 +24,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build container image
-        run: cd client
-        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME_FR) .
+        run: |
+          cd client 
+          docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME_FR) .
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
