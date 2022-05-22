@@ -1,0 +1,1090 @@
+swagger: "2.0"
+info:
+  description: "Gesundheitssystem der CyberCity"
+  version: "1.0.0"
+  title: "CyberCity Health System"
+#  termsOfService: ""
+#  contact:
+#    email: "test@mail.de"
+#  license:
+#    name: "Apache 2.0"
+#    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "www.cybercity.com"
+basePath: "/healthsystem/"
+tags:
+- name: "Gesundheitsexperte"
+  description: "Alles zu den Spezialisten des Gesundheitssystems"
+- name: "Crew"
+  description: "Team eines Gesundheitsexperten"
+- name: "Kalender"
+  description: "Alles zu dem Bereich der Termine"
+- name: "Notfallkontakte"
+  description: "Alles was zu den Notfallkontakten gehört"
+- name: "Wissenswertes"
+  description: "Eventuelle Nachrichten"
+- name: "Nachrichten"
+  description: "Nachrichtensystem"
+- name: "Kategorie"
+  description: "Alles zu den Kategorien"
+schemes:
+- "http"
+paths:
+  /expert:
+    post:
+      tags:
+      - "Gesundheitsexperte"
+      summary: "Fügt ein neuen Experten in die Datenbank"
+      description: "Ein Bürger der noch keiner ID zugewiesen wurde, wird durch erhalt der erhalt einer ID zu einem Experten"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Expert"
+      responses:
+        '201':
+          description: Resource created successfully
+        '400': 
+          description: Bad Request
+        '409':
+          description: Conflict
+        '403':
+          description: Permission Denied
+        '422':
+          description: Unprocessable Entity
+        default:
+          description: unexpected error
+          
+  /experts/{e_id}:
+    put:
+      tags:
+      - "Gesundheitsexperte"
+      summary: "Zum aktualisieren eines Experten"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: e_id
+        in: "path"
+        description: "ID des Expternen"
+        type: "integer"
+        format: "int64"
+        required: true
+      - in: "body"
+        name: "body"
+        description: "Expertendaten die abgeändert werden sollen"
+        required: true
+        schema:
+          $ref: "#/definitions/Expert"
+      responses:
+        '200':
+          description: Resource updated successfully
+        '400': 
+          description: Bad Request
+        '409':
+          description: Conflict
+        '403':
+          description: Permission Denied
+        '422':
+          description: Unprocessable Entity
+        default:
+          description: unexpected error
+          
+    get:
+      tags:
+      - "Gesundheitsexperte"
+      summary: "Findet den Gesundheitsexperten mit der jeweiligen ID"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: e_id
+        in: "path"
+        description: "ID des Expternen"
+        type: "integer"
+        format: "int64"
+        required: true
+      responses:
+        "200":
+          description: OK
+          schema:
+              $ref: "#/definitions/Expert"
+        '204':
+          description: No Content
+        '400': 
+          description: Bad Request
+        '403':
+          description: Permission Denied
+        '422':
+          description: Unprocessable Entity
+        default:
+          description: unexpected error
+          
+    delete:
+      tags:
+      - "Gesundheitsexperte"
+      summary: "Löscht den Gesundheitsexperten mit der jeweiligen ID"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: e_id
+        in: "path"
+        description: "ID des Expternen"
+        type: "integer"
+        format: "int64"
+        required: true
+      responses:
+        '200':
+          description: Resource deleted successfully
+        '400': 
+          description: Bad Request
+        '403':
+          description: Permission Denied
+        default:
+          description: unexpected error
+          
+  /experts/search/{string}:
+    get:
+      tags:
+      - "Gesundheitsexperte"
+      summary: "Findet die Gesundheitsexperten mit dem entsprechenden Namen"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: string
+        in: "path"
+        description: "Buchstaben die zu einem experten"
+        type: "string"
+        required: true
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Expert"
+        '204':
+          description: No Content
+        '400': 
+          description: Bad Request
+        '403':
+          description: Permission Denied
+        default:
+          description: unexpected error
+          
+  /experts/searchByCategory:
+    get:
+      tags:
+      - "Gesundheitsexperte"
+      summary: "Findet die Gesundheitsexperten in der entsprechenden Category"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Category"
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Expert"
+        '204':
+          description: No Content
+        '400': 
+          description: Bad Request
+        '403':
+          description: Permission Denied
+        default:
+          description: unexpected error
+
+  /experts/searchByCategory/{string}:
+    get:
+      tags:
+      - "Gesundheitsexperte"
+      summary: "Findet die Gesundheitsexperten in der entsprechenden Category"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: string
+        in: "path"
+        description: "Buchstaben die zu einem experten gehören"
+        type: "string"
+        required: true
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Expert"
+        '204':
+          description: No Content
+        '400': 
+          description: Bad Request
+        '403':
+          description: Permission Denied
+        default:
+          description: unexpected error
+          
+  /crew/{e_id}:
+    post:
+      tags:
+      - "Crew"
+      summary: "Fügt ein neues Crewmitglied zu einem Experten"
+      description: "Spezifiziert einen etwaigen Bürger zu einem Crew Mitglied eines Expertens"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: e_id
+        in: "path"
+        description: "ID des Gesundheitsexperten"
+        type: "integer"
+        required: true
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/CrewMember"
+      responses:
+        '201':
+          description: Resource created successfully
+        '400': 
+          description: Bad Request
+        '409':
+          description: Conflict
+        '403':
+          description: Permission Denied
+        '422':
+          description: Unprocessable Entity
+        default:
+          description: unexpected error
+          
+    get:
+      tags:
+      - "Crew"
+      summary: "Findet die Crew Mitglieder des Gesundheitsexperten mit der passenden ID"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: e_id
+        in: "path"
+        type: "string"
+        description: "ID des Gesundheitsexperten"
+        required: true
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/CrewMember"
+        '204':
+          description: No Content
+        '400': 
+          description: Bad Request
+        '403':
+          description: Permission Denied
+        default:
+          description: unexpected error
+      
+    put:
+      tags:
+      - "Crew"
+      summary: "Zum aktualisieren eines Experten"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: e_id
+        in: "path"
+        description: "ID des Expternen"
+        type: "integer"
+        format: "int64"
+        required: true
+      - in: "body"
+        name: "body"
+        description: "Crew Daten die abgeändert werden sollen"
+        required: true
+        schema:
+          $ref: "#/definitions/CrewMember"
+      responses:
+        '200':
+          description: Resource updated successfully
+        '400': 
+          description: Bad Request
+        '409':
+          description: Conflict
+        '403':
+          description: Permission Denied
+        '422':
+          description: Unprocessable Entity
+        default:
+          description: unexpected error
+          
+  /crew/{e_id}/{c_id}:
+    delete:
+      tags:
+      - "Crew"
+      summary: "Löscht das Crew Mitglied"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: e_id
+        in: "path"
+        description: "ID des Expternen"
+        type: "integer"
+        format: "int64"
+        required: true
+      - name: c_id
+        in: "path"
+        description: "ID des Crew Mitglieds"
+        type: "integer"
+        format: "int64"
+        required: true
+      responses:
+        '201':
+          description: Delete resource successfully
+        '400': 
+          description: Bad Request
+        '403':
+          description: Permission Denied
+        default:
+          description: unexpected error
+          
+  
+  /calender/{e_id}:
+    get:
+      tags:
+      - "Kalender"
+      summary: "Findet den passenden Kalender zu dem passenden Gesundheitsexperten"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: e_id
+        in: "path"
+        description: "ID des Expternen"
+        type: "integer"
+        format: "int64"
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: "#/definitions/Calender"
+        '204':
+          description: No Content
+        '400': 
+          description: Bad Request
+        '403':
+          description: Permission Denied
+        default:
+          description: unexpected error
+          
+    put:
+      tags:
+      - "Kalender"
+      summary: "Verändert die Variable des Kalenders zwischen Verfügbar, Ausgebucht"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: e_id
+        in: "path"
+        description: "ID des Expternen"
+        type: "integer"
+        format: "int64"
+        required: true
+      - name: "body"
+        in: "body"
+        description: "Termin Daten um den genauen Termin zuzuordnen und diesen zu verändern"
+        required: true
+        schema:
+          $ref: "#/definitions/Calender"
+      responses:
+        '200':
+          description: Resource updated successfully
+        '400': 
+          description: Bad Request
+        '409':
+          description: Conflict
+        '403':
+          description: Permission Denied
+        '422':
+          description: Unprocessable Entity
+        default:
+          description: unexpected error
+          
+  /calender/{e_id}/businesstime:
+    get:
+      tags:
+      - "Kalender"
+      summary: "Gibt die Öffnungszeiten zurück"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: e_id
+        in: "path"
+        description: "ID des Expternen"
+        type: "integer"
+        format: "int64"
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: "#/definitions/BusinessTimes"
+        '204':
+          description: No Content
+        '400': 
+          description: Bad Request
+        '403':
+          description: Permission Denied
+        default:
+          description: unexpected error
+          
+    put:
+      tags:
+      - "Kalender"
+      summary: "Zum ändern der Öffnungszeiten"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: e_id
+        in: "path"
+        description: "ID des Expternen"
+        type: "integer"
+        format: "int64"
+        required: true
+      - name: body
+        in: "body"
+        description: "Ändert die Öffnungszeiten zu dem angegebenen Körper"
+        schema:
+          $ref: "#/definitions/BusinessTimes"
+      responses:
+        '200':
+          description: Resource updated successfully
+        '400': 
+          description: Bad Request
+        '409':
+          description: Conflict
+        '403':
+          description: Permission Denied
+        '422':
+          description: Unprocessable Entity
+        default:
+          description: unexpected error
+          
+  /emergencycontacts:
+    post:
+      tags:
+      - "Notfallkontakte"
+      summary: "Fügt einen neuen Notfallkontakt hinzu"
+      description: "Ein neuer Notfallkontakt, bspw in einem Gebiet das vorher nicht aufgeführt war, oder einen zusätzlichen, sonst besser PUT benutzen"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/EmergencyContact"
+      responses:
+        '201':
+          description: Resource created successfully
+        '400': 
+          description: Bad Request
+        '409':
+          description: Conflict
+        '403':
+          description: Permission Denied
+        '422':
+          description: Unprocessable Entity
+        default:
+          description: unexpected error
+  
+    get:
+      tags:
+      - "Notfallkontakte"
+      summary: "Gibt die Notfallkontakte zurück"
+      description: ""
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/EmergencyContact"
+        '204':
+          description: No Content
+        '400': 
+          description: Bad Request
+        '403':
+          description: Permission Denied
+        default:
+          description: unexpected error
+          
+  /emergencycontacts/{categorie}:
+    get:
+      tags:
+      - "Notfallkontakte"
+      summary: "Um die Notfallkontakte einer Kategorie zu erhalten"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: categorie
+        in: "path"
+        description: "Kategorie des Notfallkontakts"
+        type: "string"
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/EmergencyContact"
+        '204':
+          description: No Content
+        '400': 
+          description: Bad Request
+        '403':
+          description: Permission Denied
+        default:
+          description: unexpected error
+          
+    put:
+      tags:
+      - "Notfallkontakte"
+      summary: "Zum ändern der Öffnungszeiten"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: categorie
+        in: "path"
+        description: "Kategorie der zu änderndes Notfallkontakts"
+        type: "string"
+        required: true
+      - name: body
+        in: "body"
+        description: "Ändert die Öffnungszeiten zu dem angegebenen Körper"
+        schema:
+          $ref: "#/definitions/EmergencyContact"
+      responses:
+        '200':
+          description: Resource updated successfully
+        '400': 
+          description: Bad Request
+        '409':
+          description: Conflict
+        '403':
+          description: Permission Denied
+        '422':
+          description: Unprocessable Entity
+        default:
+          description: unexpected error
+  
+  /emergencycontacts/delete/{e_id}:
+    delete:
+      tags:
+      - "Notfallkontakte"
+      summary: "Löscht den Notfallkontakt aus der Liste"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: e_id
+        in: "path"
+        description: "ID des Expertens"
+        type: "integer"
+        format: "int64"
+        required: true
+      responses:
+        '200':
+          description: Resource deleted successfully
+        '204':
+          description: No Content
+        '400': 
+          description: Bad Request
+        '403':
+          description: Permission Denied
+        default:
+          description: unexpected error
+          
+  /goodtoknow:
+    post:
+      tags:
+      - "Wissenswertes"
+      summary: "Fügt einen neuen Wissenwerten Beitrag hinzu"
+      description: "Ein Beitrag der wichtig ist und mit den Bürgern geteilt werden sollte"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/GoodToKnow"
+      responses:
+        '201':
+          description: Resource created successfully
+        '400': 
+          description: Bad Request
+        '409':
+          description: Conflict
+        '403':
+          description: Permission Denied
+        '422':
+          description: Unprocessable Entity
+        default:
+          description: unexpected error
+          
+  /goodtoknow/{n_id}:
+    put:
+      tags:
+      - "Wissenswertes"
+      summary: "Verändert einen wissenwerten Beitrag"
+      description: "Ein Beitrag der mit neuen Daten werden sollte"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: n_id
+        in: "path"
+        description: "ID eines Beitrages"
+        type: "integer"
+        format: "int64"
+        required: true
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/GoodToKnow"
+      responses:
+        '200':
+          description: Resource updated successfully
+        '400': 
+          description: Bad Request
+        '409':
+          description: Conflict
+        '403':
+          description: Permission Denied
+        '422':
+          description: Unprocessable Entity
+        default:
+          description: unexpected error
+          
+    delete:
+      tags:
+      - "Wissenswertes"
+      summary: "Löscht einen Beitrag aus der Datenbank"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: n_id
+        in: "path"
+        description: "ID eines Beitrages"
+        type: "integer"
+        format: "int64"
+        required: true
+      responses:
+        '200':
+          description: OK
+        default:
+          description: unexpected error
+          
+          
+  /category:
+    get:
+      tags:
+      - "Kategorie"
+      summary: "Gibt alle existierenden Kategorien in einer Liste zurück"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        '200':
+          description: Resource updated successfully
+        '400': 
+          description: Bad Request
+        '409':
+          description: Conflict
+        '403':
+          description: Permission Denied
+        default:
+          description: unexpected error
+          
+    post:
+      tags:
+      - "Kategorie"
+      summary: "Trägt eine neue Kategorie in die Liste ein"
+      description: "Ein Beitrag der mit neuen Daten werden sollte"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/Category"
+      responses:
+        '200':
+          description: Resource updated successfully
+        '400': 
+          description: Bad Request
+        '409':
+          description: Conflict
+        '403':
+          description: Permission Denied
+        '422':
+          description: Unprocessable Entity
+        default:
+          description: unexpected error
+          
+
+          
+
+          
+  /message/{b_id0}/{b_id1}:      
+    delete:
+      tags:
+      - "Nachrichten"
+      summary: "Löscht den Nachrichtenverlauf zweier Parteien"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: b_id0
+        in: "path"
+        description: "ID eines Nachrichtenpartners"
+        type: "integer"
+        format: "int64"
+        required: true
+      - name: b_id1
+        in: "path"
+        description: "ID eines Nachritenpartners"
+        type: "integer"
+        format: "int64"
+        required: true
+      responses:
+        '200':
+          description: Resource deleted successfully
+        '204':
+          description: No Content
+        '400': 
+          description: Bad Request
+        '403':
+          description: Permission Denied
+        default:
+          description: unexpected error
+          
+  /message/{b_id0}/{b_id1}/{m_id}:
+    post:
+      tags:
+      - "Nachrichten"
+      summary: "Fügt einen neue Nachricht hinzu"
+      description: "Ein Beitrag der wichtig ist und mit den Bürgern geteilt werden sollte"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: b_id0
+        in: "path"
+        description: "ID eines Nachrichtenpartners"
+        type: "integer"
+        format: "int64"
+        required: true
+      - name: b_id1
+        in: "path"
+        description: "ID eines Nachritenpartners"
+        type: "integer"
+        format: "int64"
+        required: true
+      - name: m_id
+        in: "path"
+        description: "ID der Nachricht"
+        type: "integer"
+        format: "int64"
+        required: true
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/Message"
+      responses:
+        '201':
+          description: Resource created successfully
+        '400': 
+          description: Bad Request
+        '409':
+          description: Conflict
+        '403':
+          description: Permission Denied
+        '422':
+          description: Unprocessable Entity
+        default:
+          description: unexpected error
+
+    get:
+      tags:
+      - "Nachrichten"
+      summary: "Fügt einen neue Nachricht hinzu"
+      description: "Ein Beitrag der wichtig ist und mit den Bürgern geteilt werden sollte"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: b_id0
+        in: "path"
+        description: "ID eines Nachrichtenpartners"
+        type: "integer"
+        format: "int64"
+        required: true
+      - name: b_id1
+        in: "path"
+        description: "ID eines Nachritenpartners"
+        type: "integer"
+        format: "int64"
+        required: true
+      - name: m_id
+        in: "path"
+        description: "ID der Nachricht"
+        type: "integer"
+        format: "int64"
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Message"
+        '204':
+          description: No Content
+        '400': 
+          description: Bad Request
+        '403':
+          description: Permission Denied
+        default:
+          description: unexpected error
+          
+    delete:
+      tags:
+      - "Nachrichten"
+      summary: "Löscht spezifische Nachrichten zwischen zwei Parteien"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: b_id0
+        in: "path"
+        description: "ID eines Nachrichtenpartners"
+        type: "integer"
+        format: "int64"
+        required: true
+      - name: b_id1
+        in: "path"
+        description: "ID eines Nachritenpartners"
+        type: "integer"
+        format: "int64"
+        required: true
+      - name: m_id
+        in: "path"
+        description: "ID der Nachricht"
+        type: "integer"
+        format: "int64"
+        required: true
+      responses:
+        '200':
+          description: OK
+        default:
+          description: unexpected error
+  
+definitions:
+  Expert:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: "Meier"
+      title:
+        type: "string"
+        example: "Dr.Dr.Dr.rer.nat"
+      picture:
+        type: "string"
+        example: "Pfad zum Bild, vorerst ein Icon"
+      category:
+        type: "string"
+        example: "Zahnarzt"
+      description:
+        type: "string"
+        example: "Doktor seit X Jahren in Minden. Ich hoffe sie beißen nicht."
+        
+  Category:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      category_title:
+        type: "string"
+        example: "Unfallarzt"
+  
+  Calender:
+    type: "array"
+    items:
+      type: "object"
+      properties :
+        year:
+          type: "integer"
+          format: "int"
+        month:
+          type: "integer"
+          format: "int"
+        day:
+          type: "integer"
+          format: "int"
+        freespace:
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              timespan:
+                type: "integer"
+                format: "int"
+              isAvailable:
+                type: "string"
+                enum: 
+                  - "available"
+                  - "closed"
+                  - "taken"
+         
+  BusinessTimes:
+    type: "object"
+    properties:
+      day:
+        type: "integer"
+        format: "int"
+      startTime:
+        type: "string"
+        example: "10:00"
+      endTime:
+        type: "string"
+        example: "17:00"
+      breakStart:
+        type: "string"
+        example: "13:00"
+      breakEnd:
+        type: "string"
+        example: "15:00"
+  
+  EmergencyContact:
+    type: "object"
+    properties:
+      category:
+        type: "string"
+      e_id:
+        type: "integer"
+        format: "int64"
+      startDay: 
+        type: "string"
+        example: "2022.04.11"
+      endDay:
+        type: "string"
+        example: "2022.04.17"
+        
+  GoodToKnow:
+    type: "object"
+    properties:
+      n_id:
+        type: "string"
+      n_title:
+        type: "string"
+        example: "Augenlasern ohne Laser"
+      n_text:
+        type: "string"
+        example: "Eine Brille die das Licht so bündelt das sie nach und nach die Netzhaut verändert. Die Verwendung ähnelt einer Zahnspange, nach einer Woche wird die Brille gegen eine neue getauscht. Nach und nach wird die Sehkraft immer besser bis zu dem Punkt wo keine Brille mehr gebraucht wird!"
+      n_date:
+        type: "string"
+        example: "2022.04.17"
+        
+  CrewMember:
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        c_id: 
+          type: "integer"
+        c_name:
+          type: "string"
+          example: "Frida"
+        c_title:
+          type: "string"
+          example: "Schwester"
+        c_description:
+          type: "string"
+          example: "Sie ist die die alle kennt"
+          
+  Message:
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        m_id:
+          type: "integer"
+        m_message:
+          type: "string"
+          example: "Hallo ich bin eine Nachricht"

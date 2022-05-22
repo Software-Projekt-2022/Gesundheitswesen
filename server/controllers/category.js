@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Category from "../models/category.js"
 
 export const getCategory = async (req, res) => { 
@@ -25,5 +26,17 @@ export const createCategory = async (req, res) => {
     }catch{
         res.status(409).json( {message: error.message} )
     }
+
+}
+
+export const updateCategory = async (req, res) => {
+    const { id: _id } = req.params;
+    const category = req.body;
+
+    if(mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Keine Kategorie mit dieser ID gefunden');
+
+    const updatedCategory = await Category.findByIdAndUpdate(_id, category, { new: true })
+
+    res.json(updatedCategory)
 
 }
