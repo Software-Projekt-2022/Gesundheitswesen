@@ -2,6 +2,8 @@ import express  from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
 
 import postRoutes from './routes/category.js'
 
@@ -22,5 +24,9 @@ const PORT = process.env.PORT || 5000
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
     .catch((error) => console.log(error.message));
+
+
+const swaggerDocument = YAML.load('./swagger-cc.yaml');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //mongoose.set('useFindAndModify', false);
