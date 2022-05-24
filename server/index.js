@@ -18,6 +18,9 @@ app.use(cors());
 
 app.use('/category', postRoutes)
 
+/**
+ * Hardcoded external source, will be replaced soon
+ */
 const CONNECTION_URL = "mongodb+srv://Blue:Blue@cluster0.2z1m4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 const PORT = process.env.PORT || 5000
 
