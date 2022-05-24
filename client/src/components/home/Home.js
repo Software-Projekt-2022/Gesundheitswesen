@@ -9,10 +9,7 @@ const Home = ({setCurrentId}) => {
     const categorys = useSelector((state) => state.categorys);
     
     const classes = useStyles();
-
-
     
-
     return (
       
         !categorys.length ? <CircularProgress /> : (

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 import logo from '../../images/cyber-city-logo.png'
@@ -63,7 +63,7 @@ const Header = () => {
         <AppBar className={classes.appBar} position="static" color="inherit">
             <CssBaseline />
             <Toolbar>
-                <a href='/'><img className={classes.image} src={logo} alt="LOGO" height="60" width={60}></img></a>
+                <a href='http://cyber-city.systems/'><img className={classes.image} src={logo} alt="LOGO" height="60" width={60}></img></a>
                 <Typography className={classes.heading} variant ="h2" align="center">Gesundheitswesen</Typography>
                 <div className={classes.navlinks}>
                     <Grid 

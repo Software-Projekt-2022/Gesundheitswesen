@@ -7,8 +7,6 @@ import thunk from 'redux-thunk';
 import { reducers } from './reducers';
 import App from './components/App';
 import './index.css'
-import { BrowserRouter } from 'react-router-dom';
-
 const store = createStore(reducers, compose(applyMiddleware(thunk)))
 
 ReactDOM.render(
