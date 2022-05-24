@@ -12,8 +12,8 @@ on:
 #2
 env:
   REGISTRY: "registry.digitalocean.com/cybercityregistry"
-  IMAGE_NAME_BA: "gesundheitswesen_backend:latest"
-  IMAGE_NAME_FR: "gesundheitswesen_frontend:latest"
+  IMAGE_NAME_BA: "gesundheitswesen_ba:latest"
+  IMAGE_NAME_FR: "gesundheitswesen_fr:latest"
 
 #3
 jobs:
