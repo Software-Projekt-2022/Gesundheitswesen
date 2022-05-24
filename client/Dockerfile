@@ -1,4 +1,4 @@
-FROM node:16.13.0 AS development
+FROM node:16.3.0 AS development
 
 ENV PORT=3000
 
