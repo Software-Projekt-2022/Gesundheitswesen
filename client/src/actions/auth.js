@@ -1,6 +1,4 @@
-import { AUTH } from '../constants/actionTypes';
 
-import * as api from '../api/index.js';
 
 export const login = (formData, history) => async (dispatch) => {
     try {
