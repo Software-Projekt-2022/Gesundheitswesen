@@ -1,13 +1,20 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Grid, CircularProgress, Container } from "@material-ui/core";
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import Category from '../categorys/category/Category';
 import useStyles from './styles';
+import {getCategory} from "../../actions/categorys";
 
 const Home = ({setCurrentId}) => {
+    const [currentId, setCurrendId] = useState(0);
     const categorys = useSelector((state) => state.categorys);
-    
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch( getCategory() );
+    }, [currentId, dispatch])
+
     const classes = useStyles();
     
     return (

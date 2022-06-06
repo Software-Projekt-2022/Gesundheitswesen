@@ -7,9 +7,14 @@ import FileBase from 'react-file-base64';
 import useStyles from './styles';
 import { createCategory, updateCategory } from '../../actions/categorys';
 
+
+/**
+ * Form to create a new or update a existing Category
+ * @returns 
+ */
 const Form = ({ currentId, setCurrentId }) => {
   const [categoryData, setCategoryData] = useState({ title: '',  selectedFile: '' });
-  const category = useSelector((state) => (currentId ? state.posts.find((title) => title._id === currentId) : null));
+  const category = useSelector((state) => (currentId ? state.categorys.find((title) => title._id === currentId) : null));
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -37,9 +42,9 @@ const Form = ({ currentId, setCurrentId }) => {
   return (
     <Paper className={classes.paper}>
       <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-        <Typography variant="h6">{currentId ? `Editing "${category.title}"` : 'Erstelle eine neue Kategorie'}</Typography>
-        <TextField name="title" variant="outlined" label="Title" fullWidth value={categoryData.title} onChange={(e) => setCategoryData({ ...categoryData, title: e.target.value })} />
-        <TextField name="description" variant="outlined" label="Beschreibung" fullWidth multiline rows={4} value={categoryData.description} onChange={(e) => setCategoryData({ ...categoryData, description: e.target.value })} />
+        <Typography variant="h6">{currentId ? `Bearbeiten: "${category.title}"` : 'Erstelle eine neue Kategorie'}</Typography>
+        <TextField name="title" variant="outlined" label="Titel" fullWidth value={categoryData.title} onChange={(e) => setCategoryData({ ...categoryData, title: e.target.value })} />
+        <TextField name="description" variant="outlined" label="Beschreibung" multiline  fullWidth value={categoryData.description} onChange={(e) => setCategoryData({ ...categoryData, description: e.target.value })} />
         <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setCategoryData({ ...categoryData, selectedFile: base64 })} /></div>
         <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Erstellen</Button>
         <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Löschen</Button>

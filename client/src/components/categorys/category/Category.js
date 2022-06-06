@@ -9,11 +9,11 @@ import {deleteCategory } from '../../../actions/categorys';
 import useStyles from './styles';
 
 
-const Category = ({category}) => {
+const Category = ({category, setCurrentId}) => {
 
     const dispatch = useDispatch();
     const classes = useStyles();
-    
+
 
     return (
         <Card className={classes.card}>
@@ -23,7 +23,7 @@ const Category = ({category}) => {
             <Typography variant="body2">{moment(category.createdAt).fromNow()}</Typography>
           </div>
           <div className={classes.overlay2}>
-            <Button style={{ color: 'white' }} size="small" onClick={() => dispatch()}><MoreHorizIcon fontSize="default" /></Button>
+            <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(category._id)}><MoreHorizIcon fontSize="default" /></Button>
           </div>
           <Typography className={classes.title} gutterBottom variant="h5" component="h2">{category.title}</Typography>
           <CardContent>
