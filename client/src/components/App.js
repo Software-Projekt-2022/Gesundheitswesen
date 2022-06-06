@@ -5,10 +5,11 @@ import Home from "./home/Home";
 import CCategory from "./ccategorys/CCategory"
 import EmergencyContact from "./emergencycontact/EmergencyContact"
 import NewCategory from "./categorys/NewCategory";
+import Auth from "./auth/Auth.js"
 
+import PrivateRoute from "./PrivateRoute.js";
 
-
-const App = () => {
+const App = ( {auth, doLogin, doLogout} ) => {
 
     return (
         
@@ -17,8 +18,9 @@ const App = () => {
             <Switch>
                 <Route exact path='/' component={Home}/>
                 <Route path='/categorys' component={CCategory}/>
-                <Route exact path='/emergency-contacts' component={EmergencyContact}/>
+                <PrivateRoute path='/emergency-contacts' component={EmergencyContact} isAuthenticated={false}/>
                 <Route path='/new/category' component={NewCategory}/>
+                <Route path='/auth' component={Auth}/>
             </Switch>
         </BrowserRouter>
     )
