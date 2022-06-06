@@ -20,15 +20,15 @@ const Header = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const history = useHistory();
-
     const Search = styled('div')();
     const SearchIconWrapper = styled('div')();
 
     const logout = () => {
         dispatch( {type: actionType.LOGOUT });
 
-        history.push('/auth')
+        history.push('/auth');
 
+        setUser(null);
     }
 
     useEffect(() => {

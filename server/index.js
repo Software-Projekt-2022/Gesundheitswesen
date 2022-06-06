@@ -6,7 +6,7 @@ import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 
 import expertRoutes from './routes/expert.js'
-import postRoutes from './routes/category.js'
+import categoryRoutes from './routes/category.js'
 
 
 const app = express();
@@ -18,7 +18,7 @@ app.use(cors());
 
 
 app.use('/expert', expertRoutes)
-app.use('/category', postRoutes)
+app.use('/category', categoryRoutes)
 
 /**
  * Hardcoded external source, will be replaced soon
