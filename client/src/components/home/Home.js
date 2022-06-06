@@ -20,13 +20,9 @@ const Home = ({setCurrentId}) => {
     return (
       
         !categorys.length ? <CircularProgress /> : (
-          <Container maxWidth="sm">
-            <Grid className={classes.container} container alignItems="stretch" spacing={3}>
-              {categorys.map((category) => (
-                <Grid key={category._id} item xs={12} sm={6} md={6}>
-                  <Category category={category} setCurrentId={setCurrentId} />
-                </Grid>
-              ))}
+          <Container maxWidth="lg">
+            <Grid className={classes.container} container alignItems="stretch">
+              <h1>Willkommen bei ihren Gesundheitsexperten !</h1>
             </Grid>  
         </Container>
         )

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import useStyles from '../../styles';
 import { getCategory } from "../../actions/categorys";
-import Categorys from "../categorys/Categorys.js";
+import Categorys from "./Categorys.js";
 import Form from "../form/Form.js";
 
 const NewCategory = () => {
