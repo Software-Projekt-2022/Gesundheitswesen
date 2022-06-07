@@ -33,7 +33,7 @@ export const createExpert = async (req, res) => {
         await newExpert.save();
 
         res.status(201).json(newExpert)
-    }catch{
+    }catch (error){
         res.status(409).json( {message: error.message} )
     }
 

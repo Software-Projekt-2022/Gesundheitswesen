@@ -63,7 +63,7 @@ const Header = () => {
                         
                         <Typography><Link className={classes.link} to="/">Startseite</Link></Typography>
                         <Typography><Link className={classes.link}  to='/categorys'>Kategorien</Link></Typography>
-                        <Typography><Link className={classes.link}  to='/emergency-contacts'>Notfallkontakte</Link></Typography>
+                        <Typography><Link className={classes.link}  to='/experts'>Experten</Link></Typography>
                         <Typography><Link className={classes.link} to='/auth'>Login</Link></Typography>
                     </Grid>
                 </div>

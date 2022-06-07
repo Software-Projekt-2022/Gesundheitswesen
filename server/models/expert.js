@@ -1,12 +1,10 @@
 import mongoose from "mongoose";
 
 const expertSchema = mongoose.Schema({
-    id: String,
-    name: {type: String, required: true },
+    name: String,
     title: String,
-    description: String,
     selectedFile: String,
-    category: {type: String, required: true },
+    category: String,
     description: String,
 });
 

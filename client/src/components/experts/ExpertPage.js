@@ -3,38 +3,36 @@ import { useDispatch } from "react-redux";
 import React, { useEffect, useState } from "react";
 
 import useStyles from '../../styles';
-import {createCategory, getCategory} from "../../actions/categorys";
-import Categorys from "./Categorys.js";
-import Form from "../form/Form.js";
+import {createExpert, getExperts} from "../../actions/experts";
+import Form from "../form/Form";
 
-const CategoryPage = () => {
+const ExpertPage = () => {
 
     const [currentId, setCurrentId] = useState(0);
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const initialState = {title: '', description: '' }
+    useEffect(() =>{
+        dispatch( getExperts() );
+    }, [currentId, dispatch]);
+
+    const initialState = {name: '', title: '', description: '', category: '' }
 
     const inputFields = [
+        {name: "name", label: "Name"},
         {name: "title", label: "Title"},
-        {name: "description", label: "Beschreibung"}
+        {name: "description", label: "Beschreibung"},
+        {name: "category", label: "Kategorie"}
     ]
-
-
-    useEffect(() =>{
-        dispatch( getCategory() );
-    }, [currentId, dispatch]);
 
     return (
         <Container maxWidth="lg">
             <Grow in>
                 <Container>
                     <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
-                        <Grid item xs={12} sm={7}>
-                            <Categorys setCurrentId={setCurrentId} />
-                        </Grid>
+
                         <Grid item xs={12} sm={4}>
-                            <Form initialState={initialState} inputFields={inputFields} onSubmit={createCategory} />
+                            <Form initialState={initialState} inputFields={inputFields} onSubmit={createExpert} />
                         </Grid>
                     </Grid>
                 </Container>
@@ -43,4 +41,4 @@ const CategoryPage = () => {
     )
 }
 
-export default CategoryPage;
+export default ExpertPage;

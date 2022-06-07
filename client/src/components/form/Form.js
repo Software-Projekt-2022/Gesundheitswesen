@@ -1,56 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, Paper } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
-import FileBase from 'react-file-base64';
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import useStyles from "./styles";
+import {createCategory, updateCategory} from "../../actions/categorys";
+import {Paper} from "@material-ui/core";
+import SimpleInput from "./SimpleInput";
+import ImageUploadBox from "./ImageUploadBox";
+import ConfirmOrClearBox from "./ConfrimOrClearBox";
+
+const GenericForm = ( {initialState, onSubmit, inputFields} ) => {
+    const [data, setData] = useState(initialState);
+    const dispatch = useDispatch();
+    const classes = useStyles();
+
+    const clear = () => {
+        setData({...initialState});
+    };
 
 
-import useStyles from './styles';
-import { createCategory, updateCategory } from '../../actions/categorys';
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
+        dispatch(onSubmit(data));
+            clear();
+    };
 
-/**
- * Form to create a new or update a existing Category
- * @returns 
- */
-const Form = ({ currentId, setCurrentId }) => {
-  const [categoryData, setCategoryData] = useState({ title: '',  selectedFile: '' });
-  const category = useSelector((state) => (currentId ? state.categorys.find((title) => title._id === currentId) : null));
-  const dispatch = useDispatch();
-  const classes = useStyles();
-
-  useEffect(() => {
-    if (category) setCategoryData(category);
-  }, [category]);
-
-  const clear = () => {
-    setCurrentId(0);
-    setCategoryData({ title: '', description: '', selectedFile: '' });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (currentId === 0) {
-      dispatch(createCategory(categoryData));
-      clear();
-    } else {
-      dispatch(updateCategory(currentId, categoryData));
-      clear();
+    const onUpload = (e) => {
+        setData({...data, selectedFile: e})
     }
-  };
 
-  return (
-    <Paper className={classes.paper}>
-      <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-        <Typography variant="h6">{currentId ? `Bearbeiten: "${category.title}"` : 'Erstelle eine neue Kategorie'}</Typography>
-        <TextField name="title" variant="outlined" label="Titel" fullWidth value={categoryData.title} onChange={(e) => setCategoryData({ ...categoryData, title: e.target.value })} />
-        <TextField name="description" variant="outlined" label="Beschreibung" multiline  fullWidth value={categoryData.description} onChange={(e) => setCategoryData({ ...categoryData, description: e.target.value })} />
-        <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setCategoryData({ ...categoryData, selectedFile: base64 })} /></div>
-        <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Erstellen</Button>
-        <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Löschen</Button>
-      </form>
-    </Paper>
-  );
+    const handleChangedData = (e) => {
+        const { name, value } = e.target;
+        setData({...data, [name]: value});
+    }
+
+    return (
+        <Paper className={classes.paper}>
+            <form id={"genericForm"} autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
+                <div>
+                    {inputFields.map((ele) =>
+                        <SimpleInput name={ele.name} label={ele.label} onChange={(e) => handleChangedData(e)} />)}
+                </div>
+                <ImageUploadBox onUpload={(e) => onUpload(e)}></ImageUploadBox>
+                <ConfirmOrClearBox onClear={clear} onConfirm={handleSubmit} ></ConfirmOrClearBox>
+            </form>
+        </Paper>
+    );
 };
 
-export default Form;
+export default GenericForm;

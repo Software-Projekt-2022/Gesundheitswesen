@@ -2,11 +2,11 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Header from './header/Header.js';
 import Home from "./home/Home";
-import EmergencyContact from "./emergencycontact/EmergencyContact"
-import Category from "./categorys/CategoryPage";
+import CategoryPage from "./categorys/CategoryPage";
 import Auth from "./auth/Auth.js"
 
 import PrivateRoute from "./PrivateRoute.js";
+import ExpertPage from "./experts/ExpertPage.js";
 
 const App = ( {auth, doLogin, doLogout} ) => {
 
@@ -16,9 +16,9 @@ const App = ( {auth, doLogin, doLogout} ) => {
             <Header />
             <Switch>
                 <Route exact path='/' component={Home}/>
-                <Route path='/categorys' component={Category}/>
-                <PrivateRoute path='/emergency-contacts' component={EmergencyContact} isAuthenticated={false}/>
-                <Route path='/auth' component={Auth}/>
+                <Route path='/categorys' component={CategoryPage}/>
+                <Route path='/experts' component={ExpertPage}/>
+                <PrivateRoute path='/auth' component={Auth} isAuthenticated={false}/>
             </Switch>
         </BrowserRouter>
     )
