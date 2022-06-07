@@ -19,3 +19,4 @@ export const fetchExpert = (id) => axios.get(`${expertUrl}/${id}`);
 export const createExpert = (expert) => axios.post(expertUrl, expert);
 export const updateExpert = (id, updatedCategory) => axios.patch(`${expertUrl}/${id}`, updatedCategory);
 export const deleteExpert = (id) => axios.delete(`${expertUrl}/${id}`);
+
