@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import useStyles from '../../styles';
 import {createExpert, getExperts} from "../../actions/experts";
 import Form from "../form/Form";
+import Experts from "../experts/Experts.js"
 
 const ExpertPage = () => {
 
@@ -30,7 +31,9 @@ const ExpertPage = () => {
             <Grow in>
                 <Container>
                     <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
-
+                        <Grid item xs={12} sm={7}>
+                            <Experts/>
+                        </Grid>
                         <Grid item xs={12} sm={4}>
                             <Form initialState={initialState} inputFields={inputFields} onSubmit={createExpert} />
                         </Grid>

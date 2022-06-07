@@ -9,8 +9,8 @@ import Form from "../form/Form.js";
 
 const CategoryPage = () => {
 
-    const [currentId, setCurrentId] = useState(0);
-    const classes = useStyles();
+    const [currentId] = useState(0);
+    useStyles();
     const dispatch = useDispatch();
 
     const initialState = {title: '', description: '' }
@@ -31,7 +31,7 @@ const CategoryPage = () => {
                 <Container>
                     <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
                         <Grid item xs={12} sm={7}>
-                            <Categorys setCurrentId={setCurrentId} />
+                            <Categorys/>
                         </Grid>
                         <Grid item xs={12} sm={4}>
                             <Form initialState={initialState} inputFields={inputFields} onSubmit={createCategory} />
