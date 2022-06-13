@@ -1,21 +1,30 @@
-import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
+import { Container, Grow, Grid } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import React, { useEffect, useState } from "react";
 
 import useStyles from '../../styles';
-import { getCategory } from "../../actions/categorys";
-import Categorys from "../categorys/Categorys.js";
-import Form from "../form/Form.js";
+import {createExpert, getExperts} from "../../actions/experts";
+import Form from "../form/Form";
+import Experts from "../experts/Experts.js"
 
-const NewCategory = () => {
+const ExpertPage = () => {
 
     const [currentId, setCurrentId] = useState(0);
     const classes = useStyles();
     const dispatch = useDispatch();
 
     useEffect(() =>{
-        dispatch( getCategory() );
+        dispatch( getExperts() );
     }, [currentId, dispatch]);
+
+    const initialState = {name: '', title: '', description: '', category: '' }
+
+    const inputFields = [
+        {name: "name", label: "Name"},
+        {name: "title", label: "Title"},
+        {name: "description", label: "Beschreibung"},
+        {name: "category", label: "Kategorie"}
+    ]
 
     return (
         <Container maxWidth="lg">
@@ -23,10 +32,10 @@ const NewCategory = () => {
                 <Container>
                     <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
                         <Grid item xs={12} sm={7}>
-                            <Categorys setCurrentId={setCurrentId} />
+                            <Experts/>
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                            <Form currentId={currentId} setCurrentId={setCurrentId} />
+                            <Form initialState={initialState} inputFields={inputFields} onSubmit={createExpert} />
                         </Grid>
                     </Grid>
                 </Container>
@@ -35,4 +44,4 @@ const NewCategory = () => {
     )
 }
 
-export default NewCategory;
+export default ExpertPage;

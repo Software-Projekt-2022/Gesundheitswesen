@@ -5,7 +5,9 @@ import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 
-import postRoutes from './routes/category.js'
+import expertRoutes from './routes/expert.js'
+import categoryRoutes from './routes/category.js'
+
 
 const app = express();
 
@@ -15,8 +17,8 @@ app.use(bodyParser.urlencoded( { limit: "30mb", extended: true } ));
 app.use(cors());
 
 
-
-app.use('/category', postRoutes)
+app.use('/expert', expertRoutes)
+app.use('/category', categoryRoutes)
 
 /**
  * Hardcoded external source, will be replaced soon

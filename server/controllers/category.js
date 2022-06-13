@@ -23,7 +23,7 @@ export const createCategory = async (req, res) => {
         await newCategory.save();
 
         res.status(201).json(newCategory)
-    }catch{
+    }catch (error){
         res.status(409).json( {message: error.message} )
     }
 
@@ -38,5 +38,16 @@ export const updateCategory = async (req, res) => {
     const updatedCategory = await Category.findByIdAndUpdate(_id, category, { new: true })
 
     res.json(updatedCategory)
+
+}
+
+export const deleteCategory = async (req, res) => {
+    const { id } = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`Keine Kategorie mit dieser ${id} gefunden`);
+
+    const deleteCategory = await Category.findByIdAndRemove(id)
+
+    res.json(deleteCategory)
 
 }
