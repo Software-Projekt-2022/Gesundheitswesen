@@ -3,11 +3,11 @@ import axios from 'axios';
 
 const host = process.env.REACT_APP_HOST
 
-const url = 'http://localhost:5000'
-
+//const url = 'http://localhost:5000'
+const url = 'http://gesundheitswesen_ba:5000'
 const categoryUrl = `${url}/category`
 const expertUrl = `${url}/expert`
-//const url = 'http://gesundheitswesen_ba:5000/category.cyber-city.systems'
+
 
 export const fetchCategorys = () => axios.get(categoryUrl);
 export const createCategory = (category) => axios.post(categoryUrl, category);

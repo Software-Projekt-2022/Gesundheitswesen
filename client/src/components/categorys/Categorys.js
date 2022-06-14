@@ -18,7 +18,7 @@ const Categorys = () => {
             {categorys.map((category) => (
               <Grid key={category._id} item xs={12} sm={6} md={6}>
                 <CardComponent image={category.selectedFile} title={category.title} description={category.description}
-                                id={category._id} deleteAction={deleteCategory} overlay="asd"/>
+                                id={category._id} deleteAction={deleteCategory} />
               </Grid>
             ))}
           </Grid>

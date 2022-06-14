@@ -1,13 +1,10 @@
-import React from 'react';
+import {useDispatch} from "react-redux";
+import useStyles from "../header/styles";
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core/';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import moment from 'moment';
-import { useDispatch } from 'react-redux';
 
-import useStyles from './styles.js';
-
-const CardComponent = ({image, title, description, id, timeStamp, triplePoints, deleteAction}) => {
+const CardComponent = ({image, title, description, id, overlay, triplePoints, deleteAction}) => {
     const dispatch = useDispatch()
     const classes = useStyles()
 
@@ -18,7 +15,7 @@ const CardComponent = ({image, title, description, id, timeStamp, triplePoints, 
             <CardMedia className={classes.media} image={image || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={title} />
             <div className={classes.overlay}>
                 <Typography variant="h6">{title}</Typography>
-                <Typography variant="body2">{timeStamp ? moment(timeStamp).fromNow() : ""}</Typography>
+                <Typography variant="body2">{overlay || ""}</Typography>
             </div>
             <div className={classes.overlay2}>
                 <Button style={{ color: 'white' }} size="small" onClick={triplePoints}><MoreHorizIcon fontSize="default" /></Button>
