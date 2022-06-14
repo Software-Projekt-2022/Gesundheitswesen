@@ -7,6 +7,7 @@ import Auth from "./auth/Auth.js"
 
 import PrivateRoute from "./PrivateRoute.js";
 import ExpertPage from "./experts/ExpertPage.js";
+import SpecificExpert from "./experts/specific_expert/SpecificExpert";
 
 const App = ( {auth, doLogin, doLogout} ) => {
 
@@ -17,7 +18,8 @@ const App = ( {auth, doLogin, doLogout} ) => {
             <Switch>
                 <Route exact path='/' component={Home}/>
                 <Route path='/categorys' component={CategoryPage}/>
-                <Route path='/experts' component={ExpertPage}/>
+                <Route path='/experts' exact component={ExpertPage}/>
+                <Route path='/experts/:id' exact component={SpecificExpert} />
                 <PrivateRoute path='/auth' component={Auth} isAuthenticated={false}/>
             </Switch>
         </BrowserRouter>
