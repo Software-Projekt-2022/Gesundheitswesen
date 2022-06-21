@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE, FETCH_BY_ID } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
@@ -11,6 +11,16 @@ export const getExperts = () => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const getExpertByID = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchExpert(id);
+
+    dispatch( {type: FETCH_BY_ID, payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+}
 
 export const createExpert = (expert) => async (dispatch) => {
   try {
