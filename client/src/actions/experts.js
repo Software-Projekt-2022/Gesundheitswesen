@@ -16,7 +16,7 @@ export const getExpertByID = (id) => async (dispatch) => {
   try {
     const { data } = await api.fetchExpert(id);
 
-    dispatch( {type: FETCH_BY_ID, payload: data });
+    dispatch( {type: FETCH_BY_ID, payload: {expert: data } });
   } catch (error) {
     console.log(error.message);
   }

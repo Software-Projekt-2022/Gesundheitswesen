@@ -13,6 +13,18 @@ export const getExpert = async (req, res) => {
     }
 }
 
+export const getExpertByID = async (req, res) => {
+    const { id } = req.params
+
+    try{
+        const expert = await Expert.findById(id);
+
+        res.status(200).json(expert);
+    } catch (error){
+        res.status(404).json( {message: error.message} )
+    }
+}
+
 export const deleteExpert = async (req, res) => {
     const { id } = req.params;
 

@@ -6,6 +6,7 @@ import useStyles from './styles';
 import CardComponent from "../card_component/CardComponent";
 import moment from "moment";
 import { deleteExpert } from "../../api";
+import { useHistory } from "react-router-dom";
 
 
 
@@ -14,7 +15,11 @@ const Experts = () => {
     const experts = useSelector((state) => state.experts);
     const classes = useStyles();
 
-    console.log(experts)
+    const history = useHistory()
+
+    const onButtonBaseClick = (e) => {
+        history.push(`/experts/${e}`)
+    }
 
 
     return (
@@ -30,6 +35,7 @@ const Experts = () => {
                         id={expert._id}
                         deleteAction={deleteExpert}
                         name={expert.name}
+                        onButtonBaseClick={onButtonBaseClick}
                         ></CardComponent>
                     </Grid>
                 ))}
