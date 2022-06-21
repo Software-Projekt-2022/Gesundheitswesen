@@ -19,6 +19,9 @@ const ExpertPage = () => {
 
     const initialState = {name: '', title: '', description: '', category: '' }
 
+    /**
+     * All fields for our Expert Form 
+     */
     const inputFields = [
         {name: "name", label: "Name"},
         {name: "title", label: "Title"},
@@ -31,7 +34,7 @@ const ExpertPage = () => {
             <Grow in>
                 <Container>
                     <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
-                        <Grid item xs={12} sm={12}>
+                        <Grid item xs={12} sm={7}>
                             <Experts/>
                         </Grid>
                         <Grid item xs={12} sm={4}>
