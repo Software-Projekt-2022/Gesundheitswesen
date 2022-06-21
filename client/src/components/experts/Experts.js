@@ -19,6 +19,8 @@ const Experts = () => {
         history.push(`/experts/${expert}`)
     }
 
+    console.log(experts)
+
     return (
         !experts.length ? <CircularProgress /> : (
             <Grid className={classes.container} container alignItems="stretch" spacing={3}>
@@ -26,7 +28,7 @@ const Experts = () => {
                     <Grid key={expert._id} item xs={12} sm={6} md={6}>
                         <CardComponent image={expert.selectedFile} title={expert.title} description={expert.description}
                                        id={expert._id} deleteAction={deleteExpert} timeStamp={expert.created_at}
-                                       overlay={expert.category} name={expert.name} openSite={openSite}
+                                       overlay={expert.category} name={expert.name} 
                         />
                     </Grid>
                 ))}
