@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getExpertByID } from "../../../actions/experts";
 import useStyles from "./styles";
+import SelectButtonBox from "./SelectButtonBox";
 
 
 
@@ -13,6 +14,8 @@ const SpecificExpert = ( {} ) => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const classes = useStyles();
+
+    const dateValues = { startDayHour: 9 ,endDayHour: 20, excludedDays: [0 , 6], cellDuration: 45}
 
     const loadingPaper = () => {
       return (
@@ -25,8 +28,6 @@ const SpecificExpert = ( {} ) => {
     useEffect(() => {
         dispatch(getExpertByID(id));
     }, [id])
-
-    console.log(expert)
 
     return(
       !expert ? loadingPaper() :
@@ -50,12 +51,22 @@ const SpecificExpert = ( {} ) => {
                   <Grid maxWidth sm={6} xs={12} >
                     <Paper className={classes.paper} elevation={12}>
                       <Typography variant="h4" className={classes.headline} style={{ margin: "20px" }}>Machen sie noch heute einen Termin aus</Typography>
-                      <Calendar></Calendar>
+                      <Calendar 
+                        startDayHour={dateValues.startDayHour}
+                        endDayHour={dateValues.endDayHour}
+                        excludedDays={dateValues.excludedDays}
+                        cellDuration={dateValues.cellDuration}
+                      />
                     </Paper>
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                  <Paper className={classes.paper} elevation={12}>
-                      <Typography variant="h4" className={classes.headline} style={{ margin: "20px" }}>Suchen sie nach etwas anderem?</Typography>
+                    <Paper className={classes.paper} elevation={12}>
+                        <SelectButtonBox 
+                        label={"Wähle einen Termin"}
+                        startHour={dateValues.startDayHour}
+                        endHour={dateValues.endDayHour}
+                        timespan={dateValues.cellDuration}
+                        />
                     </Paper>
                   </Grid>
                 </Container>
