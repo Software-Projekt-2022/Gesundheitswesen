@@ -33,5 +33,3 @@ mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: tr
 
 const swaggerDocument = YAML.load('./swagger-cc.yaml');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-//mongoose.set('useFindAndModify', false);
