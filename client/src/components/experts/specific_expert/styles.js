@@ -2,23 +2,21 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   media: {
-    borderRadius: '20px',
-    objectFit: 'cover',
-    width: '100%',
-    maxHeight: '600px',
+    height: 0,
+    paddingTop: '56.25%', // 16:9,
+    marginTop:'30',
+    borderRadius: '15'
+  },
+
+  card: {
+    borderRadius: '35px',
 
   },
-  card_left: {
-    display: 'flex',
-    float: 'left',
-    width: '50%',
-    height: '100%',
-    margin: '20px',
-    borderRadius: '20px',
-    [theme.breakpoints.down('sm')]: {
-      flexWrap: 'wrap',
-      flexDirection: 'column',
-    },
+  paper:{
+    margin: '20px', 
+    padding: '20px', 
+    borderRadius: '15px',
+    justifyContent: 'center',
   },
   section: {
     borderRadius: '20px',

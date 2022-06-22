@@ -17,9 +17,8 @@ const Experts = () => {
 
     const history = useHistory()
 
-    const onButtonBaseClick = (e) => {
-        history.push(`/experts/${e}`)
-    }
+    const onButtonBaseClick = (e) => history.push(`/experts/${e}`)
+    
 
     return (
         !experts.length ? <CircularProgress /> : (
