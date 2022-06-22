@@ -27,5 +27,3 @@ const App = ( {auth, doLogin, doLogout} ) => {
 }
 
 export default App;
-
-//<Route path='/experts/:id' exact component={SpecificExpert} />
