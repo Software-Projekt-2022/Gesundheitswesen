@@ -31,7 +31,7 @@ const SelectButtonBox = ( {disabledOpitions, label, startHour, endHour, timespan
                 getOptionDisabled={(option) =>
                     option === timeSlots()[0] || option === timeSlots()[2]
                 }
-                sx={{ width: 300 }}
+                sx={{ width: 200 }}
                 renderInput={(params) => <TextField  {...params} label={label} />}
                 />
         </div>

@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getExpertByID } from "../../../actions/experts";
 import useStyles from "./styles";
-import SelectButtonBox from "./SelectButtonBox";
+import ComboBoxTime from "./ComboBoxTime";
+import ComboBoxDay from "./ComboBoxDay";
 
 
 
@@ -15,7 +16,18 @@ const SpecificExpert = ( {} ) => {
     const dispatch = useDispatch();
     const classes = useStyles();
 
-    const dateValues = { startDayHour: 9 ,endDayHour: 20, excludedDays: [0 , 6], cellDuration: 45}
+    useEffect(() => {
+      dispatch(getExpertByID(id));
+    }, [id])
+
+
+    const dateValues = { startDayHour: 9 ,endDayHour: 20, excludedDays: ["0" , "6"], cellDuration: 45}
+
+    const includedDays = Array.from(Array(7).keys()
+    ).filter((it) => (!dateValues.excludedDays.includes(it.toString()))
+      ).map(it => (
+        it.toString()))
+
 
     const loadingPaper = () => {
       return (
@@ -24,10 +36,6 @@ const SpecificExpert = ( {} ) => {
         </Paper>
       )
     }
-
-    useEffect(() => {
-        dispatch(getExpertByID(id));
-    }, [id])
 
     return(
       !expert ? loadingPaper() :
@@ -61,11 +69,14 @@ const SpecificExpert = ( {} ) => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Paper className={classes.paper} elevation={12}>
-                        <SelectButtonBox 
+                        <ComboBoxTime 
                         label={"Wähle einen Termin"}
                         startHour={dateValues.startDayHour}
                         endHour={dateValues.endDayHour}
                         timespan={dateValues.cellDuration}
+                        />
+                        <ComboBoxDay 
+                        days={includedDays}
                         />
                     </Paper>
                   </Grid>
