@@ -1,32 +1,25 @@
 /* Scheduling Component */
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
-import { Scheduler, WeekView, MonthView, Appointments, AppointmentForm, Toolbar, DateNavigator , TodayButton, DragDropProvider } from '@devexpress/dx-react-scheduler-material-ui';
+import { Scheduler, WeekView, MonthView, Appointments,  Toolbar, DateNavigator , TodayButton } from '@devexpress/dx-react-scheduler-material-ui';
 import { useState } from 'react';
 
 import RadioButtonGroup from '../common/RadioButtonGroup';
 
 import appointmentDemoData from "../../demo/appointments"
 
-const Calendar = () => {
+const Calendar = ( {startDayHour, endDayHour, excludedDays, cellDuration} ) => {
 
     const [dateState, setDateState] = useState( { type: "week" } )
 
     const [apData, setApData] = useState( appointmentDemoData )
-
-    const dragDisableIds = new Set([...Array(12).keys()])
-
-    const allowDrag = ( {id} ) => dragDisableIds.has(id)
-
+ 
     const buttonValues = [
       {name: 'week', label: 'Woche'},
       {name: "month", label: "Monat"}
     ]
 
     const valueChanged = (e) =>{
-      const { value } = e.target;
       setDateState({...setDateState, type : e.target.value })    }
-
-    const appointmentFormVisible = () => dateState.type != "week"
 
     return (
 
@@ -52,10 +45,10 @@ const Calendar = () => {
         <EditingState  a/>
         <IntegratedEditing />
         <WeekView name="week"
-          startDayHour={8} 
-          endDayHour={18}
-          excludedDays={[0 , 6]}
-          cellDuration={45}
+          startDayHour={startDayHour ? startDayHour : 8} 
+          endDayHour={endDayHour ? endDayHour : 18}
+          excludedDays={excludedDays ? excludedDays : [0 , 6]}
+          cellDuration={cellDuration ? cellDuration : 45}
           />
         <MonthView name='month' />
         <Toolbar />
