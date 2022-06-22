@@ -1,6 +1,6 @@
 import { Autocomplete, TextField } from "@mui/material";
 
-const SelectButtonBox = ( {disabledOpitions, label, startHour, endHour, timespan} ) => {
+const ComboBoxTime = ( { disabledOpitions, label, startHour, endHour, timespan } ) => {
 
     const availableoptions = Math.ceil((endHour - startHour) * 60 / timespan)
 
@@ -28,6 +28,7 @@ const SelectButtonBox = ( {disabledOpitions, label, startHour, endHour, timespan
         <div>
             <Autocomplete
                 options={timeSlots()}
+                
                 getOptionDisabled={(option) =>
                     option === timeSlots()[0] || option === timeSlots()[2]
                 }
@@ -38,4 +39,4 @@ const SelectButtonBox = ( {disabledOpitions, label, startHour, endHour, timespan
     );
 }
 
-export default SelectButtonBox
+export default ComboBoxTime

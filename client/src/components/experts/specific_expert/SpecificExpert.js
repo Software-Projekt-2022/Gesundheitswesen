@@ -1,17 +1,26 @@
-import { Typography, Paper, CircularProgress, Divider, Grid, Container, Grow, Card, CardMedia, CardContent } from "@material-ui/core";
+import { 
+  Typography, 
+  Paper, 
+  CircularProgress, 
+  Grid, 
+  Container, 
+  Grow, 
+  Card, 
+  CardMedia, 
+  CardContent,
+ } from "@material-ui/core";
 import Calendar from '../../appointment/Calender';
-import { Component, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getExpertByID } from "../../../actions/experts";
 import useStyles from "./styles";
-import ComboBoxTime from "./ComboBoxTime";
-import ComboBoxDay from "./ComboBoxDay";
 
 
 
 const SpecificExpert = ( {} ) => {
-    const {expert, experts, isLoading } = useSelector((state) => state.experts)
+    const {expert } = useSelector((state) => state.experts)
+    const [date, setDate] = useState('')
     const { id } = useParams();
     const dispatch = useDispatch();
     const classes = useStyles();
@@ -20,13 +29,16 @@ const SpecificExpert = ( {} ) => {
       dispatch(getExpertByID(id));
     }, [id])
 
+    const datePicked = (e) => {
+      setDate(date)
+    }
+
+
+    useEffect(() => {
+      
+    })
 
     const dateValues = { startDayHour: 9 ,endDayHour: 20, excludedDays: ["0" , "6"], cellDuration: 45}
-
-    const includedDays = Array.from(Array(7).keys()
-    ).filter((it) => (!dateValues.excludedDays.includes(it.toString()))
-      ).map(it => (
-        it.toString()))
 
 
     const loadingPaper = () => {
@@ -55,29 +67,21 @@ const SpecificExpert = ( {} ) => {
                     </CardContent>
                   </Card>
                 </Grid>
-                <Container maxWidth={false} style={{ display: 'flex' }}>
-                  <Grid maxWidth sm={6} xs={12} >
-                    <Paper className={classes.paper} elevation={12}>
-                      <Typography variant="h4" className={classes.headline} style={{ margin: "20px" }}>Machen sie noch heute einen Termin aus</Typography>
-                      <Calendar 
-                        startDayHour={dateValues.startDayHour}
-                        endDayHour={dateValues.endDayHour}
-                        excludedDays={dateValues.excludedDays}
-                        cellDuration={dateValues.cellDuration}
-                      />
-                    </Paper>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Paper className={classes.paper} elevation={12}>
-                        <ComboBoxTime 
-                        label={"Wähle einen Termin"}
-                        startHour={dateValues.startDayHour}
-                        endHour={dateValues.endDayHour}
-                        timespan={dateValues.cellDuration}
-                        />
-                        <ComboBoxDay 
-                        days={includedDays}
-                        />
+                <Container maxWidth={false}>
+                  <Grid>
+                    <Paper className={classes.paper} elevation={12} >
+                      
+                      <Grid>
+                          <Grid>
+                            <Typography variant="h4" className={classes.headline} style={{ margin: "20px" }}>Machen sie noch heute einen Termin aus</Typography>
+                            <Calendar 
+                              startDayHour={dateValues.startDayHour}
+                              endDayHour={dateValues.endDayHour}
+                              excludedDays={dateValues.excludedDays}
+                              cellDuration={dateValues.cellDuration}
+                            />
+                          </Grid>
+                        </Grid>
                     </Paper>
                   </Grid>
                 </Container>

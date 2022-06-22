@@ -5,11 +5,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-const ComboBoxDay = ( {days} ) => {
+const ComboBoxDay = ( {days, onValueChange} ) => {
   const [day, setDay] = useState('');
 
   const handleChange = (event) => {
     setDay(event.target.value);
+    onValueChange( event )
   };
 
   const DaysEnum = Object.freeze({ 
@@ -35,10 +36,7 @@ const ComboBoxDay = ( {days} ) => {
         Object.entries(DaysEnum
         ).filter((keys, _) => (days.includes(keys[1]))
             ).map((it) => (
-            
-            <MenuItem value={it[1]}> {it[0]}</MenuItem>
-            
-            ))
+            <MenuItem value={it[1]}> {it[0]}</MenuItem>))
         }
         </Select>
       </FormControl>
