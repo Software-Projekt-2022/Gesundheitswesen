@@ -1,10 +1,9 @@
-import React from 'react'
 import axios from 'axios';
 
 const host = process.env.REACT_APP_HOST
 
 //const url = 'http://localhost:5000'
-const url = 'http://gesundheitswesen_ba:5000'
+const url = 'https://gesundheitswesen.cyber-city.systems/api'
 const categoryUrl = `${url}/category`
 const expertUrl = `${url}/expert`
 
