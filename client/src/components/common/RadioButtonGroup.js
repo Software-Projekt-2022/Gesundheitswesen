@@ -5,7 +5,15 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import { useState } from 'react';
 
-const RadioButtonGroup = ( {buttonValues, initialState, style} ) => {
+/**
+ * 
+ * @param { [JSON{name : "", label: ""}] } buttonValues, values of each FromcontrolLabel.
+ * @param { String } initialState, defaultValue, Button which used to be clicked at the beginning
+ * @param { style } style 
+ * @param { SyntheticButtonEvent } onValueChanged event that will be fired
+ * @returns 
+ */
+const RadioButtonGroup = ( {buttonValues, initialState, style, onValueChanged} ) => {
 
     const state = initialState;
   
@@ -14,6 +22,7 @@ const RadioButtonGroup = ( {buttonValues, initialState, style} ) => {
     const setCurrentButtonsState = (e) => {
       const { name, value } = e.target;
       setButtonState( {...setButtonState, [name] : value} )
+      onValueChanged( e )
     }
   
     return(  
@@ -22,6 +31,7 @@ const RadioButtonGroup = ( {buttonValues, initialState, style} ) => {
           style={style}
           value={buttonsState.buttonValues}
           onChange={((e) => setCurrentButtonsState(e))}
+          defaultValue={initialState}
           >
           {buttonValues.map((button) => 
             <FormControlLabel 
