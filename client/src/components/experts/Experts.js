@@ -16,7 +16,7 @@ const Experts = () => {
     const classes = useStyles();
 
     const history = useHistory()
-
+    /** activate when the card under the picture is clicked */
     const onButtonBaseClick = (e) => history.push(`/experts/${e}`)
     
 

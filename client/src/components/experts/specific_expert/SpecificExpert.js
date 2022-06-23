@@ -58,8 +58,8 @@ const SpecificExpert = ( {} ) => {
             <Grid alignItems="center">
                 <Grid>
                   <Card elevation={12} className={classes.card}>
-                  <Typography variant="h3" className={classes.headline}>Mein name ist: {expert.name}</Typography>
-                  <Typography variant="h4" className={classes.headline}>Ich bin ein/e: {expert.title}</Typography>
+                  <Typography variant="h3" className={classes.headline}>Name: {expert.name}</Typography>
+                  <Typography variant="h4" className={classes.headline}>{expert.title}</Typography>
                     <CardMedia className={classes.media} image={expert.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={expert.title} /> 
                     <CardContent>
                       <Typography variant="h5">Fachgebiet:</Typography>

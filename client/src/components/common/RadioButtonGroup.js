@@ -17,8 +17,10 @@ const RadioButtonGroup = ( {buttonValues, initialState, style, onValueChanged} )
 
     const state = initialState;
   
+    /** Hook for ButtonState */
     const [buttonsState, setButtonState] = useState( {state} )
   
+    /** Hook when Button is set */
     const setCurrentButtonsState = (e) => {
       const { name, value } = e.target;
       setButtonState( {...setButtonState, [name] : value} )

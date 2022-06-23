@@ -9,7 +9,6 @@ const SimpleInput = ( {name, label, onChange, value} ) => (
         value={value}
         onChange={onChange}
     >
-
     </TextField>
 )
 

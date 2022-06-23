@@ -6,18 +6,23 @@ import SimpleInput from "../common/SimpleInput";
 import ImageUploadBox from "../common/ImageUploadBox";
 import ConfirmOrClearBox from "../common/ConfrimOrClearBox";
 
+
+/**
+ * 
+ * @param { Array } initialState, used for useState()
+ * @param { Array } inputFields name and label for every inputfield
+ */
 const GenericForm = ( {initialState, onSubmit, inputFields} ) => {
     const [data, setData] = useState({...initialState});
     const dispatch = useDispatch();
     const classes = useStyles();
 
     useEffect(() => {
-        if(data) setData(data)
+        if(data) setData(data);
     }, [data])
 
-    const clear = () => {
-        setData({...initialState});
-    };
+
+    const clear = () => setData({...initialState});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,10 +31,8 @@ const GenericForm = ( {initialState, onSubmit, inputFields} ) => {
         clear();
     };
 
-    const onUpload = (e) => {
-        setData({...data, selectedFile: e})
-    }
-
+    const onUpload = (e) => setData({...data, selectedFile: e});
+    
     const handleChangedData = (e) => {
         const { name, value } = e.target;
         setData({...data, [name]: value});

@@ -2,6 +2,11 @@ import {Button} from "@material-ui/core";
 import useStyles from "../header/styles";
 import React from "react";
 
+/**
+ * 
+ * @param { * } onConfirm callBackFunction
+ * @param { * } onClear callBackFunction
+ */
 const ConfirmOrClearBox = ( {onConfirm, onClear} ) => {
     const classes = useStyles();
     return (

@@ -8,7 +8,7 @@ import useStyles from './styles'
 import * as actionType from '../../constants/actionTypes';
 
 import SearchIcon from '@mui/icons-material/Search';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { useDispatch } from 'react-redux';
 

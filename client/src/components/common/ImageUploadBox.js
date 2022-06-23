@@ -2,6 +2,11 @@ import FileBase from 'react-file-base64';
 
 import React from "react";
 
+/**
+ * 
+ * @param {*} onUpload callBackFunction 
+ * @returns 
+ */
 const ImageUploadBox = ( {onUpload} ) => {
     return (
         <div style={{ width: '97%', margin: '10px 0'} }>

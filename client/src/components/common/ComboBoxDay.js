@@ -6,11 +6,16 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import DaysEnum from './DaysEnum.js';
 
+/**
+ * 
+ * @param { Array }  of String, of the Days  that are excluded
+ * @param { * } callBackFunction
+ */
 const ComboBoxDay = ( {days, onValueChange} ) => {
   const [day, setDay] = useState('');
 
 
-  const handleChange = (event) => {
+    const handleChange = (event) => {
     const { value } = event.target 
     setDay(value);
     onValueChange( DaysEnum[ value ] )

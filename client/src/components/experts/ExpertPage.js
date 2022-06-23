@@ -2,25 +2,23 @@ import { Container, Grow, Grid } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import React, { useEffect, useState } from "react";
 
-import useStyles from '../../styles';
 import {createExpert, getExperts} from "../../actions/experts";
 import Form from "../form/Form";
 import Experts from "../experts/Experts.js"
 
 const ExpertPage = () => {
-
-    const [currentId, setCurrentId] = useState(0);
-    const classes = useStyles();
+    
     const dispatch = useDispatch();
 
+    /**  */
     useEffect(() =>{
         dispatch( getExperts() );
-    }, [currentId, dispatch]);
+    }, [dispatch]);
 
     const initialState = {name: '', title: '', description: '', category: '' }
 
     /**
-     * All fields for our Expert Form 
+     * All fields for the Expert Form 
      */
     const inputFields = [
         {name: "name", label: "Name"},
