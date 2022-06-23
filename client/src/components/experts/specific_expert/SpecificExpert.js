@@ -10,7 +10,7 @@ import {
   CardContent,
  } from "@material-ui/core";
 import Calendar from '../../appointment/Calender';
-import { useEffect, useState } from "react";
+import { useEffect  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getExpertByID } from "../../../actions/experts";
@@ -20,7 +20,6 @@ import useStyles from "./styles";
 
 const SpecificExpert = ( {} ) => {
     const { expert } = useSelector((state) => state.experts)
-    const [date, setDate] = useState('')
     const { id } = useParams();
     const dispatch = useDispatch();
     const classes = useStyles();
@@ -28,11 +27,6 @@ const SpecificExpert = ( {} ) => {
     useEffect(() => {
       dispatch(getExpertByID(id));
     }, [id])
-
-    const datePicked = (e) => {
-      setDate(date)
-    }
-
 
     useEffect(() => {
       
