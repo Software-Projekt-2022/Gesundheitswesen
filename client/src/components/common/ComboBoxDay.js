@@ -4,27 +4,20 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import DaysEnum from './DaysEnum.js';
 
 const ComboBoxDay = ( {days, onValueChange} ) => {
   const [day, setDay] = useState('');
 
+
   const handleChange = (event) => {
-    setDay(event.target.value);
-    onValueChange( event )
+    const { value } = event.target 
+    setDay(value);
+    onValueChange( DaysEnum[ value ] )
   };
 
-  const DaysEnum = Object.freeze({ 
-    "Sonntag" : "0", 
-    "Montag" : "1", 
-    "Dienstag" : "2",
-    "Mittwoch" : "3", 
-    "Donnerstag" : "4", 
-    "Freitag" : "5", 
-    "Samstag" : "6", 
-  })
-
   return (
-    <Box sx={{ width: 120 }}>
+    <Box sx={{ width: 200 }}>
       <FormControl fullWidth>
         <InputLabel>Tag</InputLabel>
         <Select
@@ -34,9 +27,9 @@ const ComboBoxDay = ( {days, onValueChange} ) => {
         >
         {
         Object.entries(DaysEnum
-        ).filter((keys, _) => (days.includes(keys[1]))
+        ).filter((key, _) => (days.includes(key[0]))
             ).map((it) => (
-            <MenuItem value={it[1]}> {it[0]}</MenuItem>))
+            <MenuItem value={it[0]}> {it[1]}</MenuItem>))
         }
         </Select>
       </FormControl>

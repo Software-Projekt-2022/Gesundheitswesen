@@ -19,7 +19,7 @@ import useStyles from "./styles";
 
 
 const SpecificExpert = ( {} ) => {
-    const {expert } = useSelector((state) => state.experts)
+    const { expert } = useSelector((state) => state.experts)
     const [date, setDate] = useState('')
     const { id } = useParams();
     const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const SpecificExpert = ( {} ) => {
       
     })
 
-    const dateValues = { startDayHour: 9 ,endDayHour: 20, excludedDays: ["0" , "6"], cellDuration: 45}
+    const dateValues = { startDayHour: 9.25 ,endDayHour: 20, excludedDays: ["0" , "6"], cellDuration: 45}
 
 
     const loadingPaper = () => {
