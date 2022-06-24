@@ -9,7 +9,7 @@ import {
   CardMedia, 
   CardContent,
  } from "@material-ui/core";
-import Calendar from '../../appointment/Calender';
+import Calendar from '../../calendar/Calender';
 import { useEffect  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";

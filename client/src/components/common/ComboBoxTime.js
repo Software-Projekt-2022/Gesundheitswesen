@@ -1,6 +1,6 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import TimeHelper from "../appointment/TimeHelper";
+import TimeHelper from "../calendar/TimeHelper";
 
 /**
  * 
