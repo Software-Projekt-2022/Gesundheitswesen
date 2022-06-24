@@ -1,11 +1,6 @@
 import React from "react";
-import { Route, Redirect, Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 
-const RedirectPage = () => {
-  React.useEffect(() => {
-    window.location.replace('https://www.google.com')
-  }, [])
-}
 
 const PrivateRoute = ({ component: Component, isAuthenticated, ...rest}) => (
   <Route
