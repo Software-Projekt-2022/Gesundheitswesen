@@ -5,6 +5,8 @@ import axios from 'axios';
 const url = 'https://gesundheitswesen.cyber-city.systems/api'
 const categoryUrl = `${url}/category`
 const expertUrl = `${url}/expert`
+const appointmentURL = `${url}/appointment`
+const calendarURL = `${url}/calendar`
 
 
 export const fetchCategorys = () => axios.get(categoryUrl);
@@ -17,4 +19,15 @@ export const fetchExpert = (id) => axios.get(`${expertUrl}/${id}`);
 export const createExpert = (expert) => axios.post(expertUrl, expert);
 export const updateExpert = (id, updatedCategory) => axios.patch(`${expertUrl}/${id}`, updatedCategory);
 export const deleteExpert = (id) => axios.delete(`${expertUrl}/${id}`);
+
+export const fetchAppointments = (id) => axios.get(`${appointmentURL}/${id}`);
+export const createAppointment = (id) => axios.post(`${appointmentURL}/${id}}`);
+export const fetchAppointmentByID = (id, appointment_id) => axios.get(`${appointmentURL}/${id}/${appointment_id}`);
+export const deleteAppointment = (id, appointment_id) => axios.delete(`${appointmentURL}/${id}/${appointment_id}`);
+
+
+export const createCalendar = (id) => axios.post(`${calendarURL}/${id}`);
+export const fetchCalendarByID = (id) => axios.get(`${calendarURL}/${id}`);
+export const updateCalendar = (id) => axios.patch(`${calendarURL}/${id}`);
+export const deleteCalendar = (id) => axios.delete(`${calendarURL}/${id}`);
 

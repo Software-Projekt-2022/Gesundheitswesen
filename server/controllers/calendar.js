@@ -41,3 +41,15 @@ export const updateCalendar = async (req, res) => {
     res.json(updateCalendar)
 
 }
+
+
+export const deleteCalendar = async (req, res) => {
+    const { id } = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`Keine Kalendar mit dieser ${id} gefunden`);
+
+    const deleteCalendar = await Calendar.findByIdAndRemove(id)
+
+    res.json(deleteCalendar)
+
+}
