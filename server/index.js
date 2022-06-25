@@ -17,8 +17,8 @@ app.use(bodyParser.urlencoded( { limit: "30mb", extended: true } ));
 app.use(cors());
 
 
-app.use('/expert', expertRoutes)
-app.use('/category', categoryRoutes)
+app.use('/api/expert', expertRoutes)
+app.use('/api/category', categoryRoutes)
 
 /**
  * Hardcoded external source, will be replaced soon
