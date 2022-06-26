@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import Category from "../models/category.js"
 import Expert from "../models/expert.js";
 
 export const getExpert = async (req, res) => { 
@@ -55,9 +54,9 @@ export const updateExpert = async (req, res) => {
     const { id: _id } = req.params;
     const expert = req.body;
 
-    if(mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Keine Kategorie mit dieser ID gefunden');
+    if(mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Kein Experte mit dieser ID gefunden');
 
-    const updatedExpert = await Category.findByIdAndUpdate(_id, expert, { new: true })
+    const updatedExpert = await Expert.findByIdAndUpdate(_id, expert, { new: true })
 
     res.json(updatedExpert)
 

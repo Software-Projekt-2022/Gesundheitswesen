@@ -1,26 +1,24 @@
 import { Container, Grow, Grid } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
-import useStyles from '../../styles';
 import {createExpert, getExperts} from "../../actions/experts";
 import Form from "../form/Form";
 import Experts from "../experts/Experts.js"
 
 const ExpertPage = () => {
-
-    const [currentId, setCurrentId] = useState(0);
-    const classes = useStyles();
+    
     const dispatch = useDispatch();
 
+    /**  */
     useEffect(() =>{
         dispatch( getExperts() );
-    }, [currentId, dispatch]);
+    }, [dispatch]);
 
     const initialState = {name: '', title: '', description: '', category: '' }
 
     /**
-     * All fields for our Expert Form 
+     * All fields for the Expert Form 
      */
     const inputFields = [
         {name: "name", label: "Name"},
@@ -30,19 +28,14 @@ const ExpertPage = () => {
     ]
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
+            <Grid style={{margin: "20px", padding: "20px", bgcolor: 'background.paper'}} spacing={3}>
             <Grow in>
-                <Container>
-                    <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
-                        <Grid item xs={12} sm={7}>
-                            <Experts/>
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <Form initialState={initialState} inputFields={inputFields} onSubmit={createExpert} />
-                        </Grid>
-                    </Grid>
-                </Container>
-            </Grow>
+                <Experts/>
+            </Grow >
+                <Form initialState={initialState} inputFields={inputFields} onSubmit={createExpert} />
+
+            </Grid>
         </Container> 
     )
 }

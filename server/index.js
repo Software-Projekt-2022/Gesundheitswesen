@@ -7,6 +7,8 @@ import YAML from 'yamljs';
 
 import expertRoutes from './routes/expert.js'
 import categoryRoutes from './routes/category.js'
+import appointmentRoutes from './routes/appointments.js'
+import calendarRoutes from './routes/calendar.js'
 
 
 const app = express();
@@ -17,8 +19,12 @@ app.use(bodyParser.urlencoded( { limit: "30mb", extended: true } ));
 app.use(cors());
 
 
-app.use('/api/expert', expertRoutes)
-app.use('/api/category', categoryRoutes)
+
+app.use('/expert', expertRoutes)
+app.use('/category', categoryRoutes)
+app.use('/appointment', appointmentRoutes)
+app.use('/calendar', calendarRoutes)
+
 
 /**
  * Hardcoded external source, will be replaced soon

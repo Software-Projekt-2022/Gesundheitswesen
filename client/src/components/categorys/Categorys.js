@@ -2,21 +2,21 @@ import React from "react";
 import { Grid, CircularProgress } from "@material-ui/core";
 import { useSelector } from 'react-redux';
 
-import useStyles from './styles';
 import CardComponent from "../card_component/CardComponent";
 import { deleteCategory } from "../../actions/categorys";
 import moment from "moment";
+import { Stack } from "@mui/material";
 
 const Categorys = () => {
     const categorys = useSelector((state) => state.categorys);
-    const classes = useStyles();
+
 
     
     return (
         !categorys.length ? <CircularProgress /> : (
-          <Grid className={classes.container} container alignItems="stretch" spacing={3}>
+          <Stack  container alignItems="stretch" spacing={3}>
             {categorys.map((category) => (
-              <Grid key={category._id} item xs={12} sm={6} md={6}>
+              <Grid key={category._id} >
                 <CardComponent 
                 image={category.selectedFile} 
                 title={category.title} 
@@ -26,7 +26,7 @@ const Categorys = () => {
                 overlay={moment(category.created_at).fromNow()}/>
               </Grid>
             ))}
-          </Grid>
+          </Stack>
         )
       );
     };

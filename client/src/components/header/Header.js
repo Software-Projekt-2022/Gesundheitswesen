@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useHistory ,useLocation } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 
 import logo from '../../images/cyber-city-logo.png'
@@ -8,7 +8,7 @@ import useStyles from './styles'
 import * as actionType from '../../constants/actionTypes';
 
 import SearchIcon from '@mui/icons-material/Search';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { useDispatch } from 'react-redux';
 
@@ -18,7 +18,6 @@ const Header = () => {
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const dispatch = useDispatch();
-    const location = useLocation();
     const history = useHistory();
     const Search = styled('div')();
     const SearchIconWrapper = styled('div')();
