@@ -15,24 +15,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getExpertByID } from "../../../actions/experts";
 import useStyles from "./styles";
+import { getCalendar } from "../../../actions/calender";
 
 
 
-const SpecificExpert = ( {} ) => {
-    const { expert } = useSelector((state) => state.experts)
+const SpecificExpert = (  ) => {
+    const { expert } = useSelector((state) => state.experts);
+    
     const { id } = useParams();
     const dispatch = useDispatch();
     const classes = useStyles();
 
-    useEffect(() => {
-      dispatch(getExpertByID(id));
-    }, [id])
+
 
     useEffect(() => {
-      
-    })
-
-    const dateValues = { startDayHour: 9.25 ,endDayHour: 20, excludedDays: ["0" , "6"], cellDuration: 45}
+      dispatch(getExpertByID(id)).then(dispatch(getCalendar()))
+    }, [])
 
 
     const loadingPaper = () => {
@@ -67,12 +65,8 @@ const SpecificExpert = ( {} ) => {
                       
                       <Grid>
                           <Grid>
-                            <Typography variant="h4" className={classes.headline} style={{ margin: "20px" }}>Machen sie noch heute einen Termin aus</Typography>
                             <Calendar 
-                              startDayHour={dateValues.startDayHour}
-                              endDayHour={dateValues.endDayHour}
-                              excludedDays={dateValues.excludedDays}
-                              cellDuration={dateValues.cellDuration}
+                              id={id}
                             />
                           </Grid>
                         </Grid>

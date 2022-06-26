@@ -24,7 +24,7 @@ export const getExpertByID = (id) => async (dispatch) => {
 
 export const createExpert = (expert) => async (dispatch) => {
   try {
-    console.log(expert)
+    
     const { data } = await api.createExpert(expert);
 
     dispatch({ type: CREATE, payload: data });

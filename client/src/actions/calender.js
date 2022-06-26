@@ -1,20 +1,30 @@
-import { CREATE, UPDATE, DELETE, FETCH_BY_ID } from '../constants/actionTypes';
+import { CREATE, UPDATE, DELETE, FETCH_BY_ID, FETCH_ALL } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
-export const getCalendarByID = () => async (dispatch) => {
+export const getCalendarByID = (id) => async (dispatch) => {
   try {
-    const { data } = await api.fetchCalendarByID();
+    const { data } = await api.fetchCalendarByID(id);
 
-    dispatch({ type: FETCH_BY_ID, payload: data });
+    dispatch({ type: FETCH_BY_ID, payload: {calendar : data }});
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export const createCalendar = (calendar) => async (dispatch) => {
+export const getCalendar = () => async (dispatch) => {
   try {
-    const { data } = await api.createCalendar(calendar);
+    const calendars = await api.fetchCalendar();
+
+    dispatch( {type : FETCH_ALL, payload: calendars.data} )
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+export const createCalendar = (calendar, id) => async (dispatch) => {
+  try {
+    const { data } = await api.createCalendar(id, calendar);
 
     dispatch({ type: CREATE, payload: data });
   } catch (error) {
@@ -22,7 +32,7 @@ export const createCalendar = (calendar) => async (dispatch) => {
   }
 };
 
-export const updateCalendar = (id, calendar) => async (dispatch) => {
+export const updateCalendar = (calendar, id) => async (dispatch) => {
   try {
     const { data } = await api.updateCategory(id, calendar);
 

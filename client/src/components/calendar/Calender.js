@@ -13,17 +13,40 @@ import ComboBoxDay from '../common/ComboBoxDay';
 import ComboBoxTime from '../common/ComboBoxTime';
 import DaysEnum from '../common/DaysEnum';
 import TimeHelper from './TimeHelper';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
+import CalendarConfigurator from './CalendarConfigurator';
+import { useEffect  } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { getCalendar } from '../../actions/calender';
+import axios from 'axios';
+
 
 /**
  * 
- * @param { startDayHour } float start of the day, 9.25 -> 9:15 
- * @param { endDayHour } float end of the day, 18.25 -> 18:15
- * @param { excludedDays } Array [String]  Starts at 0 -> Sunday,
- * @param { cellDuration }  Int duration in minutes of every cell
  * 
  */
-const Calendar = ( {startDayHour, endDayHour, excludedDays, cellDuration} ) => {
+const Calendar = ( {id} ) => {
+
+  const {calendar} = useSelector((state) => state);
+
+  const specificCalendar = calendar.find((calendar) => calendar.id_expert === id)
+
+  let calendarAvail = undefined;
+  
+  let endDayHour, startDayHour, cellDuration, excludedDays  = undefined
+
+  if(specificCalendar !== undefined){
+    calendarAvail = true
+    endDayHour = specificCalendar.endDayHour
+    startDayHour = specificCalendar.startDayHour
+    cellDuration = specificCalendar.cellDuration
+    excludedDays = specificCalendar.excludedDays.split(''
+    ).map((letter, index) => {
+      if(letter === "1") return index.toString()
+      else return null
+    }).filter((it) => it !== null);
+  }
+
 
 
     /** Radiobutton Hook for CalenderTyp */
@@ -57,7 +80,7 @@ const Calendar = ( {startDayHour, endDayHour, excludedDays, cellDuration} ) => {
     const getChoosedDay = (date, day) => {
       // We need the middle, cause the day the calendar used to do this
       const middle = Math.round((7 - excludedDays.length) / 2);
-      const dayValueFromMid = DaysEnum[day] - DaysEnum[middle]
+      const dayValueFromMid = DaysEnum[day] - DaysEnum[DaysEnum[middle]]
       let choosedDay = new Date(date)
       // set the choosen day from the checkbox
       choosedDay.setDate(choosedDay.getDate() + dayValueFromMid)
@@ -69,8 +92,9 @@ const Calendar = ( {startDayHour, endDayHour, excludedDays, cellDuration} ) => {
      * @param { Date() } choosedDay date in Date() Format @see getChoosedDay 
      * @returns a List of appointments of the Day
      */
-      const getAppointments = (choosedDay) =>  apData.filter((date) => choosedDay.getDate() === date.startDate.getDate()
-                                                    ).map((date) => TimeHelper.timeSlotFromDate(date.startDate, date.endDate))
+      const getAppointments = (choosedDay) =>  apData.filter((date) => choosedDay.getDate() === date.startDate.getDate(
+        )).map((date) => TimeHelper.timeSlotFromDate(date.startDate, date.endDate))
+
     
 
     /** Hook @see date */
@@ -112,9 +136,10 @@ const Calendar = ( {startDayHour, endDayHour, excludedDays, cellDuration} ) => {
       it.toString()));
 
 
-
     return (
+      calendarAvail === undefined ? <CalendarConfigurator id={id}/>:
     <Container id="calendar">
+      <Typography variant="h4" style={{ margin: "20px", display: 'flex', justifyContent: 'center', }}>Machen sie noch heute einen Termin aus</Typography>
       <RadioButtonGroup  
       style={{ flexDirection: 'row' }}
       buttonValues={buttonValues}
@@ -136,10 +161,10 @@ const Calendar = ( {startDayHour, endDayHour, excludedDays, cellDuration} ) => {
         <EditingState  a/>
         <IntegratedEditing />
         <WeekView name="week"
-          startDayHour={startDayHour ? startDayHour : 8} 
-          endDayHour={endDayHour ? endDayHour : 18}
-          excludedDays={excludedDays ? excludedDaysToIntArr() : [0 , 6]}
-          cellDuration={cellDuration ? cellDuration : 45}
+          startDayHour={startDayHour} 
+          endDayHour={endDayHour}
+          excludedDays={excludedDaysToIntArr()}
+          cellDuration={cellDuration}
           />
         <MonthView name='month' />
         <Toolbar />

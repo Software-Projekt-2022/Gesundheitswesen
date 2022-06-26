@@ -6,6 +6,7 @@ const expertSchema = mongoose.Schema({
     selectedFile: String,
     category: String,
     description: String,
+    calendar_id: String,
     created_at    : { type: Date, required: true, default: Date.now }
 });
 

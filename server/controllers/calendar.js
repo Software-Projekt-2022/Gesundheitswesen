@@ -17,9 +17,20 @@ export const createCalendar = async (req, res) => {
 
 }
 
-export const getCalendarByID = async (req, res) => {
-    const { id } = req.params
+export const getCalendar = async (req, res) => {
 
+    try{
+        const calendar = await Calendar.find();
+
+        res.status(200).json(calendar);
+    } catch (error){
+        res.status(404).json( {message: error.message} )
+    }
+}
+
+export const getCalendarByID = async (req, res) => {
+
+    const { id } = req.params
     try{
         const calendar = await Calendar.findById(id);
 
