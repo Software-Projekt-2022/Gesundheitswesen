@@ -15,10 +15,7 @@ import DaysEnum from '../common/DaysEnum';
 import TimeHelper from './TimeHelper';
 import { Button, Typography } from '@mui/material';
 import CalendarConfigurator from './CalendarConfigurator';
-import { useEffect  } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { getCalendar } from '../../actions/calender';
-import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 
 /**
