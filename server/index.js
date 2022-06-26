@@ -19,10 +19,12 @@ app.use(bodyParser.urlencoded( { limit: "30mb", extended: true } ));
 app.use(cors());
 
 
+
 app.use('/expert', expertRoutes)
 app.use('/category', categoryRoutes)
 app.use('/appointment', appointmentRoutes)
 app.use('/calendar', calendarRoutes)
+
 
 /**
  * Hardcoded external source, will be replaced soon
