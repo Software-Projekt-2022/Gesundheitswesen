@@ -4,12 +4,42 @@ import { useEffect } from "react";
 import axios from 'axios';
 import { EMAIL, TOKEN } from "../constants/actionTypes";
 
+import Cookies from 'js-cookie';
 
 
 
-const PrivateRoute = ({ component: Component, isAuthenticated, ...rest}) => {
+const PrivateRoute = ({ component: Component, ...rest}) => {
+
 
   const authURL = "https://auth.cyber-city.systems/api"
+
+
+  const isAuthenticated = async () => {
+
+    const coookie = Cookies.get("cybercity-auth")
+    console.log(coookie)
+    if(coookie === undefined)
+      return false
+    const config = {
+        headers: {
+          'Authorization': coookie
+        }
+      }
+      try {
+        await axios.get(`${authURL}/validate_token`, config).then((data) => {
+            console.log(data)
+            if(data.status === 200)
+              return true
+            else 
+              return false
+          }
+        )
+      } catch (e) {
+        console.log(e)
+        return false
+      }
+      
+  }
 
   const fetchToken = async () => {
     try {
@@ -29,36 +59,15 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest}) => {
     return fetch
   }
 
-  const proofToken = async () => {
-    const token = window.localStorage.getItem(TOKEN)
-    const data  = {}
-    const config = {
-      headers: {
-        'Authorization': token
-      }
-    }
-    
-    try {
-      await axios.get(`${authURL}/validate_token`, config).then(
-        (data) => console.log(data)
-      )
-
-    } catch (e) {
-      console.log(e)
-    }
-  }
-  
-  useEffect(() => {
-   fetchToken()
-   proofToken()
-  }, []);
+  const target = "https://gesundheitswesen.cyber-city.systems/"
+  const redirect = `https://cyber-city.systems/login?target=${target}`
 
   return (
     <Route
     {...rest}
     render={props => (
-      isAuthenticated ? <Component {...props} />
-      : window.location.replace('http://cyber-city.systems/login')
+      isAuthenticated() ? <Component {...props} />
+      : window.location.replace(redirect)
     )}
   />
   

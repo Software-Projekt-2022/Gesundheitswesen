@@ -22,7 +22,7 @@ const App = ( {auth, doLogin, doLogout} ) => {
                 <Route path='/categorys' component={CategoryPage}/>
                 <Route path='/experts' exact component={ExpertPage}/>
                 <Route path='/experts/:id' exact component={SpecificExpert}/>
-                <PrivateRoute path='/auth' component={Home} isAuthenticated={true}/>
+                <PrivateRoute path='/auth' component={Home}/>
             </Switch>
         </BrowserRouter>
     )
