@@ -32,3 +32,4 @@ export const FETCH_CALENDAR_BY_EXPERT_ID = `${FETCH_BY_ID}EXPERT_CALENDAR`
 export const TOKEN = "TOKEN";
 export const EMAIL = "EMAIL"
 export const LOGOUT = 'LOGOUT';
+export const COOKIE = "cybercity-auth"

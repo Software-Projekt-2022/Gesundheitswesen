@@ -18,11 +18,10 @@ const App = () => {
         <BrowserRouter>
             <Header />
             <Switch>
-                <Route exact path='/' component={Home}/>
-                <Route path='/categorys' component={CategoryPage}/>
-                <Route path='/experts' exact component={ExpertPage}/>
-                <Route path='/experts/:id' exact component={SpecificExpert}/>
-                <PrivateRoute path='/auth' component={Home}/>
+                <PrivateRoute exact path='/' component={Home}/>
+                <PrivateRoute path='/categorys' component={CategoryPage}/>
+                <PrivateRoute path='/experts' exact component={ExpertPage}/>
+                <PrivateRoute path='/experts/:id' exact component={SpecificExpert}/>
             </Switch>
         </BrowserRouter>
     )

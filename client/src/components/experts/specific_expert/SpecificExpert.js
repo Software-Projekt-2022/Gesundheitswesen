@@ -27,8 +27,6 @@ const SpecificExpert = (  ) => {
     const dispatch = useDispatch();
     const classes = useStyles();
 
-    console.log(useSelector((state) => state))
-
     useEffect(() => {
 
     },[appointment])
