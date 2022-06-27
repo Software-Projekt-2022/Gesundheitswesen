@@ -5,5 +5,6 @@ export const FETCH_ALL = 'FETCH_ALL';
 export const FETCH_BY_ID = 'FETCH_BY_ID';
 
 export const TOKEN = "TOKEN";
+export const EMAIL = "EMAIL"
 
 export const LOGOUT = 'LOGOUT';

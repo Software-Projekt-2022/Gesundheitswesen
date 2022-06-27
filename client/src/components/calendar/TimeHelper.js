@@ -14,6 +14,10 @@ class TimeHelper{
         return 60 * decimal
     }
 
+    static minutesInMillis(minutes){
+        return minutes * 60 * 1000;
+    } 
+
     /**
      * 
      * @param { int } startHour in decimal, even 9.35, (0.75 -> 45 minutes)

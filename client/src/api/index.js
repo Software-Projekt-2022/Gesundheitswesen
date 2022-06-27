@@ -21,7 +21,7 @@ export const updateExpert = (id, updatedCategory) => axios.patch(`${expertUrl}/$
 export const deleteExpert = (id) => axios.delete(`${expertUrl}/${id}`);
 
 export const fetchAppointments = (id) => axios.get(`${appointmentURL}/${id}`);
-export const createAppointment = (id) => axios.post(`${appointmentURL}/${id}}`);
+export const createAppointment = (id, appointment) => axios.post(`${appointmentURL}/${id}}`, appointment);
 export const fetchAppointmentByID = (id, appointment_id) => axios.get(`${appointmentURL}/${id}/${appointment_id}`);
 export const deleteAppointment = (id, appointment_id) => axios.delete(`${appointmentURL}/${id}/${appointment_id}`);
 

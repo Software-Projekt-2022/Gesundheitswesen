@@ -23,11 +23,11 @@ export const getAppointmentByID = (id, appointment_id) => async (dispatch) => {
   }
 };
 
-export const createAppointment = (appointment) => async (dispatch) => {
+export const createAppointment = (id ,appointment) => async (dispatch) => {
   try {
-    const { data } = await api.createAppointment(appointment);
-
-    dispatch({ type: CREATE, payload: data });
+    const  data  = await api.createAppointment(id, appointment);
+    console.log(data)
+    dispatch({ type: CREATE, payload: data.data });
   } catch (error) {
     console.log(error.message);
   }
