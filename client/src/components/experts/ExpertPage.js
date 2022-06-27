@@ -34,7 +34,6 @@ const ExpertPage = () => {
                 <Experts/>
             </Grow >
                 <Form initialState={initialState} inputFields={inputFields} onSubmit={createExpert} />
-
             </Grid>
         </Container> 
     )

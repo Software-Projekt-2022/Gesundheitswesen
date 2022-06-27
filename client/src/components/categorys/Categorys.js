@@ -6,9 +6,11 @@ import CardComponent from "../card_component/CardComponent";
 import { deleteCategory } from "../../actions/categorys";
 import moment from "moment";
 import { Stack } from "@mui/material";
+import { useEffect } from "react";
 
 const Categorys = () => {
     const categorys = useSelector((state) => state.categorys);
+
 
 
     

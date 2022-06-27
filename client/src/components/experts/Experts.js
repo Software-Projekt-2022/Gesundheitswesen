@@ -7,7 +7,7 @@ import moment from "moment";
 import { deleteExpert } from "../../api";
 import { useHistory } from "react-router-dom";
 import { Stack } from "@mui/material";
-
+import { useEffect } from "react";
 
 
 const Experts = () => {
@@ -17,6 +17,7 @@ const Experts = () => {
     const history = useHistory()
     /** activate when the card under the picture is clicked */
     const onButtonBaseClick = (e) => history.push(`/experts/${e}`)
+
     
 
     return (

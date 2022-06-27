@@ -30,7 +30,8 @@ const Calendar = ( {id} ) => {
 
   let calendarAvail = undefined;
   
-  let endDayHour, startDayHour, cellDuration, excludedDays  = undefined
+  let endDayHour, startDayHour, cellDuration = undefined
+  let excludedDays =[]
 
   if(specificCalendar !== undefined){
     calendarAvail = true
