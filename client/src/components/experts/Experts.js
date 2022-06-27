@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import CardComponent from "../card_component/CardComponent";
 import moment from "moment";
-import { deleteExpert } from "../../api";
+import { deleteExpert } from "../../actions/experts";
 import { useHistory } from "react-router-dom";
 import { Stack } from "@mui/material";
 import { useEffect } from "react";

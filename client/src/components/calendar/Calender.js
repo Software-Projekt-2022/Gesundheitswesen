@@ -1,7 +1,7 @@
 /* Scheduling Component */
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import { Scheduler, WeekView, MonthView, Appointments,  Toolbar, DateNavigator , TodayButton } from '@devexpress/dx-react-scheduler-material-ui';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { createAppointment } from "../../actions/appointment";
 
@@ -28,7 +28,6 @@ import ComboboxReason from '../common/ComboBoxReason';
  */
 const Calendar = ( {id, appointmentData} ) => {
 
-  console.log(appointmentData)
 
   const dispatch = useDispatch();
 
@@ -58,6 +57,10 @@ const Calendar = ( {id, appointmentData} ) => {
   }
 
 
+    useEffect(() => {
+      setApData(appointmentData)
+    }, [dispatch, appointmentData]);
+    
     /** Radiobutton Hook for CalenderTyp */
     const [calendarType, setCalendarType] = useState( { type: "week" } )
 
@@ -71,7 +74,7 @@ const Calendar = ( {id, appointmentData} ) => {
     const [currendDate, setCurrentDay] = useState("2018-07-25")
 
     /** Data Hook for loadet Data */
-    const [apData] = useState( appointmentData )
+    const [apData, setApData] = useState( appointmentData )
 
     /** ComboBoxTime Hook for choosen time */
     const [time, setTime] = useState (null)
@@ -164,7 +167,6 @@ const Calendar = ( {id, appointmentData} ) => {
 
         const createDate = (time) => {
           const specificTime = time.split(":");
-          console.log(day)
           const date = new Date(day);
           date.setHours(parseInt(specificTime[0]), parseInt(specificTime[1], 0))
           return date;
