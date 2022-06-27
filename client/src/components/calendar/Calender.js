@@ -31,31 +31,33 @@ const Calendar = ( {id, appointmentData} ) => {
 
   const dispatch = useDispatch();
 
-  const {calendar} = useSelector((state) => state);
+  const calendar = useSelector((state) => state.CalendarReducer);
 
-  const specificCalendar = calendar.find((calendar) => calendar.id_expert === id)
+  console.log(calendar)
 
   let calendarAvail = undefined;
   
   let endDayHour, startDayHour, cellDuration = undefined
   let excludedDays =[]
 
-  if(specificCalendar !== undefined){
-    calendarAvail = true
-    try{
-      endDayHour = parseFloat(specificCalendar.endDayHour)
-      startDayHour = parseFloat(specificCalendar.startDayHour)
-      cellDuration = parseInt(specificCalendar.cellDuration)
-    } catch (e){
-      console.log(e)
+  if(calendar.length > 0){
+    const specificCalendar = calendar.find((data) => data.id_expert === id)
+    if(specificCalendar !== undefined){
+      calendarAvail = true
+      try{
+        endDayHour = parseFloat(specificCalendar.endDayHour)
+        startDayHour = parseFloat(specificCalendar.startDayHour)
+        cellDuration = parseInt(specificCalendar.cellDuration)
+      } catch (e){
+        console.log(e)
+      }
+      excludedDays = specificCalendar.excludedDays.split(''
+      ).map((letter, index) => {
+        if(letter === "1") return index.toString()
+        else return null
+      }).filter((it) => it !== null);
     }
-    excludedDays = specificCalendar.excludedDays.split(''
-    ).map((letter, index) => {
-      if(letter === "1") return index.toString()
-      else return null
-    }).filter((it) => it !== null);
   }
-
 
     useEffect(() => {
       setApData(appointmentData)

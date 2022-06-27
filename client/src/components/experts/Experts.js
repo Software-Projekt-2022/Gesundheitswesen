@@ -7,12 +7,11 @@ import moment from "moment";
 import { deleteExpert } from "../../actions/experts";
 import { useHistory } from "react-router-dom";
 import { Stack } from "@mui/material";
-import { useEffect } from "react";
 
 
 const Experts = () => {
 
-    const experts = useSelector((state) => state.experts);
+    const experts = useSelector((state) => state.ExpertReducer);
 
     const history = useHistory()
     /** activate when the card under the picture is clicked */
