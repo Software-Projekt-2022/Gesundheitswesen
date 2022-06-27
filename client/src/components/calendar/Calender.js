@@ -26,7 +26,9 @@ import ComboboxReason from '../common/ComboBoxReason';
  * 
  * 
  */
-const Calendar = ( {id} ) => {
+const Calendar = ( {id, appointmentData} ) => {
+
+  console.log(appointmentData)
 
   const dispatch = useDispatch();
 
@@ -69,7 +71,7 @@ const Calendar = ( {id} ) => {
     const [currendDate, setCurrentDay] = useState("2018-07-25")
 
     /** Data Hook for loadet Data */
-    const [apData, setApData] = useState( appointmentDemoData )
+    const [apData] = useState( appointmentData )
 
     /** ComboBoxTime Hook for choosen time */
     const [time, setTime] = useState (null)
@@ -162,7 +164,8 @@ const Calendar = ( {id} ) => {
 
         const createDate = (time) => {
           const specificTime = time.split(":");
-          const date = new Date(currendDate);
+          console.log(day)
+          const date = new Date(day);
           date.setHours(parseInt(specificTime[0]), parseInt(specificTime[1], 0))
           return date;
         }
@@ -180,7 +183,6 @@ const Calendar = ( {id} ) => {
         }
 
         dispatch(createAppointment(id, appointment))
-
       }
 
 

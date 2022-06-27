@@ -2,7 +2,7 @@ import { CREATE, UPDATE, DELETE, FETCH_BY_ID, FETCH_ALL } from '../constants/act
 
 import * as api from '../api/index.js';
 
-export const getCalendarByID = (id) => async (dispatch) => {
+export const fetchCalendarByID = (id) => async (dispatch) => {
   try {
     const { data } = await api.fetchCalendarByID(id);
 
@@ -12,9 +12,9 @@ export const getCalendarByID = (id) => async (dispatch) => {
   }
 };
 
-export const getCalendar = () => async (dispatch) => {
+export const fetchCalendarByExpertID = ( id ) => async (dispatch) => {
   try {
-    const calendars = await api.fetchCalendar();
+    const calendars = await api.fetchCalendarByExpertID(id);
 
     dispatch( {type : FETCH_ALL, payload: calendars.data} )
   } catch (error) {

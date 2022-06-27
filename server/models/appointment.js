@@ -5,8 +5,7 @@ const appointmentSchema = mongoose.Schema({
     id_expert: String,
     startdate: String,
     enddate: String,
-    category: String,
-    description: String,
+    reason: String,
     creator: String,
     created_at    : { type: Date, required: true, default: Date.now }
 });

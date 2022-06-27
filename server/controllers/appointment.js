@@ -3,8 +3,9 @@ import mongoose from "mongoose";
 
 
 export const getAppointments = async (req, res) => { 
+    const { id } = req.params
     try{
-        const appointments = await Appointment.find();
+        const appointments = await Appointment.find( {id_expert : id} );
 
         res.status(200).json(appointments);
 

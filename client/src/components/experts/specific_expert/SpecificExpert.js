@@ -15,23 +15,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getExpertByID } from "../../../actions/experts";
 import useStyles from "./styles";
-import { getCalendar } from "../../../actions/calender";
+import { fetchCalendarByExpertID } from "../../../actions/calender";
+import { fetchAppointments } from "../../../actions/appointment";;
 
 
 
 const SpecificExpert = (  ) => {
     const { expert } = useSelector((state) => state.experts);
-    
+    const { appointment } = useSelector((state) => state)
     const { id } = useParams();
     const dispatch = useDispatch();
     const classes = useStyles();
 
+    useEffect(() => {
 
+    },[appointment])
 
     useEffect(() => {
-      dispatch(getExpertByID(id)).then(dispatch(getCalendar()))
-    }, [])
+      dispatch(fetchAppointments(id))
+      dispatch(getExpertByID(id))
+      dispatch(fetchCalendarByExpertID(id))
+    }, [dispatch, id])
 
+    const reacreateAppointments = () =>  {
+      const recreateAppointment = (data) => { return {title: "Buchung", startDate: new Date(data.startdate), endDate: new Date(data.enddate)} }
+      return appointment.map((ap) => recreateAppointment(ap))
+    }
 
     const loadingPaper = () => {
       return (
@@ -46,7 +55,7 @@ const SpecificExpert = (  ) => {
       <Container maxWidth={false}>
         <Grow in>
           <Grid>
-            <Paper className={classes.paper} elevation={10}>
+            <Paper className={classes.paper} elevation={12}>
             <Grid alignItems="center">
                 <Grid>
                   <Card elevation={12} className={classes.card}>
@@ -67,6 +76,7 @@ const SpecificExpert = (  ) => {
                           <Grid>
                             <Calendar 
                               id={id}
+                              appointmentData={reacreateAppointments()}
                             />
                           </Grid>
                         </Grid>

@@ -1,11 +1,11 @@
 import express from 'express';
-import { createCalendar, deleteCalendar, getCalendar, updateCalendar, getCalendarByID } from '../controllers/calendar.js';
+import { createCalendar, deleteCalendar, updateCalendar, getCalendarByID, getCalendarByExpertID } from '../controllers/calendar.js';
 
 
 const router = express.Router();
 
 router.post('/:id', createCalendar);
-router.get('/', getCalendar);
+router.get('/:id', getCalendarByExpertID);
 router.get('/:id', getCalendarByID)
 router.patch('/:id', updateCalendar);
 router.delete('/:id', deleteCalendar)

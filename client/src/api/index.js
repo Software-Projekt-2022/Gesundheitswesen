@@ -28,6 +28,6 @@ export const deleteAppointment = (id, appointment_id) => axios.delete(`${appoint
 
 export const createCalendar = (id, calendar) => axios.post(`${calendarURL}/${id}`, calendar);
 export const fetchCalendarByID = (id) => axios.get(`${calendarURL}/${id}`);
-export const fetchCalendar = () => axios.get(calendarURL)
+export const fetchCalendarByExpertID = (id) => axios.get(`${calendarURL}/${id}`)
 export const updateCalendar = (id) => axios.patch(`${calendarURL}/${id}`);
 export const deleteCalendar = (id) => axios.delete(`${calendarURL}/${id}`);
