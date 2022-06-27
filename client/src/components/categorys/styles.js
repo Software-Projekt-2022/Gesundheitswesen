@@ -1,6 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
+    wrapper: {
+        display: "grid",
+        gap: "10px",
+    },
     mainContainer: {
         display: 'flex',
         alignItems: 'center',
@@ -11,4 +15,5 @@ export default makeStyles((theme) => ({
     actionDiv: {
         textAlign: 'center',
     },
+    
 }));

@@ -25,12 +25,14 @@ const CategoryPage = () => {
     }, [currentId, dispatch]);
 
     return (
-        <Container maxWidth="md">
-            <Grid style={{margin: "20px", padding: "20px"}} spacing={3}>
+        <Container maxWidth="md" >
+            <Grid style={{margin: "20px", padding: "20px"}} justifyContent="flex" >
                 <Grow in>
                     <Categorys/>
                 </Grow>
+                <Grid spacing={3} style={{margin: "20px", padding: "20px"}} >
                     <Form initialState={initialState} inputFields={inputFields} onSubmit={createCategory} />
+                </Grid>
             </Grid>
         </Container> 
     )

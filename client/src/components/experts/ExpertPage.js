@@ -30,12 +30,14 @@ const ExpertPage = () => {
     ]
 
     return (
-        <Container maxWidth="xl">
-            <Grid style={{margin: "20px", padding: "20px", bgcolor: 'background.paper'}} spacing={3}>
+        <Container maxWidth="md">
+            <Grid style={{margin: "20px", padding: "20px"}} spacing={3}>
             <Grow in>
                 <Experts/>
-            </Grow >
-                <Form initialState={initialState} inputFields={inputFields} onSubmit={createExpert} />
+            </Grow>
+                <Grid spacing={3} style={{margin: "20px", padding: "20px"}} >
+                    <Form initialState={initialState} inputFields={inputFields} onSubmit={createExpert} />
+                </Grid>
             </Grid>
         </Container> 
     )

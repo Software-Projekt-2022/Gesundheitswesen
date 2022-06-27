@@ -15,9 +15,9 @@ const Categorys = () => {
     
     return (
         !categorys.length ? <CircularProgress /> : (
-          <Stack  container alignItems="stretch" spacing={3}>
+          <Stack spacing={1} justifyContent="end">
             {categorys.map((category) => (
-              <Grid key={category._id} >
+              <Grid key={category._id} item xs={12} >
                 <CardComponent 
                 image={category.selectedFile} 
                 title={category.title} 
