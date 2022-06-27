@@ -1,16 +1,20 @@
-import { UPDATE, DELETE, FETCH_ALL, CREATE_CALENDAR } from '../constants/actionTypes';
+import { CREATE_CALENDAR, FETCH_ALL_CALENDAR, UPDATE_CALENDAR, DELETE_CALENDAR, FETCH_CALENDAR_BY_EXPERT_ID } from '../constants/actionTypes';
 
-export default (calendar = [], action) => {
+const CalendarReducer =  (calendar = [], action) => {
     switch (action.type) {
-      case FETCH_ALL:
+      case FETCH_ALL_CALENDAR:
         return action.payload;
       case CREATE_CALENDAR:
         return [...calendar, action.payload];
-      case UPDATE:
+      case UPDATE_CALENDAR:
         return calendar.map((calendar) => (calendar._id === action.payload._id ? action.payload : calendar));
-      case DELETE:
+      case DELETE_CALENDAR:
         return calendar.filter((calendar) => calendar._id !== action.payload);
+      case FETCH_CALENDAR_BY_EXPERT_ID:
+        return action.payload
       default:
         return calendar;
     }
   };
+
+  export default CalendarReducer

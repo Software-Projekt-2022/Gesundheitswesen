@@ -13,27 +13,29 @@ import Calendar from '../../calendar/Calender';
 import { useEffect  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getExpertByID } from "../../../actions/experts";
+import { fetchExpertByID } from "../../../actions/experts";
 import useStyles from "./styles";
 import { fetchCalendarByExpertID } from "../../../actions/calender";
-import { fetchAppointments } from "../../../actions/appointment";;
+import { fetchAppointmentsOfExpert } from "../../../actions/appointment";;
 
 
 
 const SpecificExpert = (  ) => {
-    const { expert } = useSelector((state) => state.experts);
-    const { appointment } = useSelector((state) => state)
+    const  { expert }  = useSelector((state) => state.ExpertReducer);
+    const  appointment = useSelector((state) => state.AppointmentReducer)
     const { id } = useParams();
     const dispatch = useDispatch();
     const classes = useStyles();
+
+    console.log(useSelector((state) => state))
 
     useEffect(() => {
 
     },[appointment])
 
     useEffect(() => {
-      dispatch(fetchAppointments(id))
-      dispatch(getExpertByID(id))
+      dispatch(fetchAppointmentsOfExpert(id))
+      dispatch(fetchExpertByID(id))
       dispatch(fetchCalendarByExpertID(id))
     }, [dispatch, id])
 

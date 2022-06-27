@@ -1,13 +1,13 @@
-import { DELETE, FETCH_BY_ID, FETCH_APPOINTMENTS, CREATE_APPOINTMENT } from '../constants/actionTypes';
+import { FETCH_APPOINTMENT_BY_ID, FETCH_APPOINTMENTS_BY_EXPERT, CREATE_APPOINTMENT, DELETE_APPOINTMENT } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
 
-export const fetchAppointments = (id) => async (dispatch) => {
+export const fetchAppointmentsOfExpert = (id) => async (dispatch) => {
     try {
       const { data } = await api.fetchAppointments(id);
     
-      dispatch({ type : FETCH_APPOINTMENTS, payload: data })
+      dispatch({ type : FETCH_APPOINTMENTS_BY_EXPERT, payload: data })
     } catch (error) {
       console.log(error.message);
     }
@@ -17,7 +17,7 @@ export const getAppointmentByID = (id, appointment_id) => async (dispatch) => {
   try {
     const { data } = await api.fetchAppointmentByID(id, appointment_id);
 
-    dispatch({ type: FETCH_BY_ID, payload: data });
+    dispatch({ type: FETCH_APPOINTMENT_BY_ID, payload: data });
   } catch (error) {
     console.log(error.message);
   }
@@ -38,7 +38,7 @@ export const deleteAppointment = (id, appointment_id) => async (dispatch) => {
   try {
     await api.deleteAppointment(id, appointment_id);
 
-    dispatch({ type: DELETE, payload: id });
+    dispatch({ type: DELETE_APPOINTMENT, payload: id });
   } catch (error) {
     console.log(error.message);
   }

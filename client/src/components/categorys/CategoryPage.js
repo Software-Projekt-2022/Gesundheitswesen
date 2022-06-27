@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import React, { useEffect, useState } from "react";
 
 
-import {createCategory, getCategory} from "../../actions/categorys";
+import {createCategory, fetchAllCategories } from "../../actions/categorys";
 import Categorys from "./Categorys.js";
 import Form from "../form/Form.js";
 
@@ -21,7 +21,7 @@ const CategoryPage = () => {
 
 
     useEffect(() =>{
-        dispatch( getCategory() );
+        dispatch( fetchAllCategories() );
     }, [currentId, dispatch]);
 
     return (

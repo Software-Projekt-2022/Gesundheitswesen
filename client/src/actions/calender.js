@@ -1,27 +1,43 @@
-import { CREATE, UPDATE, DELETE, FETCH_BY_ID, FETCH_ALL, CREATE_CALENDAR } from '../constants/actionTypes';
+import { CREATE_CALENDAR, DELETE_CALENDAR, FETCH_CALENDAR_BY_EXPERT_ID, FETCH_CALENDAR_BY_ID, UPDATE_CALENDAR } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
+/**
+ * 
+ * @param {String} id of the calendar 
+ * @returns 
+ */
 export const fetchCalendarByID = (id) => async (dispatch) => {
   try {
     const { data } = await api.fetchCalendarByID(id);
 
-    dispatch({ type: FETCH_BY_ID, payload: {calendar : data }});
+    dispatch({ type: FETCH_CALENDAR_BY_ID, payload: {calendar : data }});
   } catch (error) {
     console.log(error.message);
   }
 };
 
+/**
+ * 
+ * @param {String} id of the expert 
+ * @returns 
+ */
 export const fetchCalendarByExpertID = ( id ) => async (dispatch) => {
   try {
     const calendars = await api.fetchCalendarByExpertID(id);
 
-    dispatch( {type : FETCH_ALL, payload: calendars.data} )
+    dispatch( {type : FETCH_CALENDAR_BY_EXPERT_ID, payload: calendars.data} )
   } catch (error) {
     console.log(error.message);
   }
 }
 
+/**
+ * 
+ * @param {String} id of the expert
+ * @param {calendar} calendar obj, which will used to create a new calendar
+ * @returns 
+ */
 export const createCalendar = (id, calendar) => async (dispatch) => {
   console.log(calendar)
   try {
@@ -33,22 +49,33 @@ export const createCalendar = (id, calendar) => async (dispatch) => {
   }
 };
 
-export const updateCalendar = (calendar, id) => async (dispatch) => {
+/**
+ * 
+ * @param {String} id of the expert
+ * @param {calendar} calendar obj, which will used to create a new calendar
+ * @returns 
+ */
+export const updateCalendar = (id, calendar) => async (dispatch) => {
   try {
     const { data } = await api.updateCategory(id, calendar);
 
-    dispatch({ type: UPDATE, payload: data });
+    dispatch({ type: UPDATE_CALENDAR, payload: data });
   } catch (error) {
     console.log(error.message);
   }
 };
 
 
+/**
+ * 
+ * @param {String} id of the calendar 
+ * @returns 
+ */
 export const deleteCalendar = (id) => async (dispatch) => {
   try {
     await api.deleteCalendar(id);
 
-    dispatch({ type: DELETE, payload: id });
+    dispatch({ type: DELETE_CALENDAR, payload: id });
   } catch (error) {
     console.log(error.message);
   }
