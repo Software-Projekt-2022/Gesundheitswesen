@@ -94,5 +94,5 @@ jobs:
           script: |
             # Start docker
             cd ~/docker
-            docker pull
+            docker-compose pull
             docker-compose up -d --force-recreate
