@@ -46,6 +46,8 @@ const PrivateRoute = ({ component: Component, ...rest}) => {
   const redirect = `https://cyber-city.systems/login?target=${target}`
 
   console.log(auth)
+  
+  isAuthenticated();
 
   return (
     <Route
