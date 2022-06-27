@@ -35,16 +35,19 @@ const Calendar = ( {id} ) => {
 
   if(specificCalendar !== undefined){
     calendarAvail = true
-    endDayHour = specificCalendar.endDayHour
-    startDayHour = specificCalendar.startDayHour
-    cellDuration = specificCalendar.cellDuration
+    try{
+      endDayHour = parseFloat(specificCalendar.endDayHour)
+      startDayHour = parseFloat(specificCalendar.startDayHour)
+      cellDuration = parseInt(specificCalendar.cellDuration)
+    } catch (e){
+      console.log(e)
+    }
     excludedDays = specificCalendar.excludedDays.split(''
     ).map((letter, index) => {
       if(letter === "1") return index.toString()
       else return null
     }).filter((it) => it !== null);
   }
-
 
 
     /** Radiobutton Hook for CalenderTyp */
@@ -66,7 +69,6 @@ const Calendar = ( {id} ) => {
       {name: 'week', label: 'Woche'},
       {name: "month", label: "Monat"}
     ]
-
   
     /**
      * 
