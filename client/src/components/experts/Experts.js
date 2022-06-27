@@ -21,7 +21,7 @@ const Experts = () => {
 
     return (
         !experts.length ? <CircularProgress /> : (
-            <Stack container alignItems="stretch" pacing={3}>
+            <Stack container alignItems="stretch" spacing={1}>
                 {experts.map((expert) => (
                     <Grid key={expert._id} >
                         <CardComponent 

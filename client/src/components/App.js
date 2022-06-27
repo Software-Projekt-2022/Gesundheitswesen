@@ -10,7 +10,7 @@ import SpecificExpert from "./experts/specific_expert/SpecificExpert.js"
 
 
 
-const App = ( {auth, doLogin, doLogout} ) => {
+const App = () => {
 
 
     return (

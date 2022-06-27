@@ -2,20 +2,20 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles({
   media: {
-    height: 0,
-    paddingTop: '75.25%',
-    paddingLeft: "100%",
+    width : "100px",
+    height: "100px",
+    paddingLeft: '200px',
+    paddingTop: '200px', // 16:9,
+    marginTop:'30',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     backgroundBlendMode: 'darken',
   },
 
   card: {
-    width: "100%",
     display: 'flex',
     justifyContent: 'space-between',
     borderRadius: '15px',
-    height: '75%',
-    position: 'relative',
+  
   },
   overlay: {
     position: 'absolute',
