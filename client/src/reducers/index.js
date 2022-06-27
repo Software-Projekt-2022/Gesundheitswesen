@@ -5,4 +5,9 @@ import experts from "./experts";
 import calendar from "./calender";
 import appointment from "./appointment";
 
-export const reducers = combineReducers({ categorys, experts, calendar, appointment });
+export const reducers = combineReducers(
+    {   categorys,
+        experts,
+        calendar,
+        appointment,
+    });

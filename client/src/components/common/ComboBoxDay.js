@@ -4,7 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import DaysEnum from './DaysEnum.js';
+import DaysEnum from '../enums/DaysEnum.js';
 
 /**
  * 

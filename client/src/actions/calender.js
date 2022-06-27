@@ -1,8 +1,8 @@
-import { CREATE, UPDATE, DELETE, FETCH_BY_ID, FETCH_ALL } from '../constants/actionTypes';
+import { CREATE, UPDATE, DELETE, FETCH_BY_ID, FETCH_ALL, CREATE_CALENDAR } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
-export const getCalendarByID = (id) => async (dispatch) => {
+export const fetchCalendarByID = (id) => async (dispatch) => {
   try {
     const { data } = await api.fetchCalendarByID(id);
 
@@ -12,9 +12,9 @@ export const getCalendarByID = (id) => async (dispatch) => {
   }
 };
 
-export const getCalendar = () => async (dispatch) => {
+export const fetchCalendarByExpertID = ( id ) => async (dispatch) => {
   try {
-    const calendars = await api.fetchCalendar();
+    const calendars = await api.fetchCalendarByExpertID(id);
 
     dispatch( {type : FETCH_ALL, payload: calendars.data} )
   } catch (error) {
@@ -22,11 +22,12 @@ export const getCalendar = () => async (dispatch) => {
   }
 }
 
-export const createCalendar = (calendar, id) => async (dispatch) => {
+export const createCalendar = (id, calendar) => async (dispatch) => {
+  console.log(calendar)
   try {
     const { data } = await api.createCalendar(id, calendar);
 
-    dispatch({ type: CREATE, payload: data });
+    dispatch({ type: CREATE_CALENDAR, payload: data });
   } catch (error) {
     console.log(error.message);
   }

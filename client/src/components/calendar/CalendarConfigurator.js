@@ -1,5 +1,5 @@
 import { Autocomplete, Button, Checkbox, FormControlLabel, Paper, Stack, TextField, Typography } from "@mui/material"
-import { createCalendar } from "../../api"
+import { createCalendar } from "../../actions/calender"
 
 import { useState } from "react"
 import { useDispatch } from "react-redux";

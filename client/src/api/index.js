@@ -21,14 +21,13 @@ export const updateExpert = (id, updatedCategory) => axios.patch(`${expertUrl}/$
 export const deleteExpert = (id) => axios.delete(`${expertUrl}/${id}`);
 
 export const fetchAppointments = (id) => axios.get(`${appointmentURL}/${id}`);
-export const createAppointment = (id) => axios.post(`${appointmentURL}/${id}}`);
+export const createAppointment = (id, appointment) => axios.post(`${appointmentURL}/${id}}`, appointment);
 export const fetchAppointmentByID = (id, appointment_id) => axios.get(`${appointmentURL}/${id}/${appointment_id}`);
 export const deleteAppointment = (id, appointment_id) => axios.delete(`${appointmentURL}/${id}/${appointment_id}`);
 
 
-export const createCalendar = (id) => axios.post(`${calendarURL}/${id}`);
+export const createCalendar = (id, calendar) => axios.post(`${calendarURL}/${id}`, calendar);
 export const fetchCalendarByID = (id) => axios.get(`${calendarURL}/${id}`);
-export const fetchCalendar = () => axios.get(calendarURL)
+export const fetchCalendarByExpertID = (id) => axios.get(`${calendarURL}/${id}`)
 export const updateCalendar = (id) => axios.patch(`${calendarURL}/${id}`);
 export const deleteCalendar = (id) => axios.delete(`${calendarURL}/${id}`);
-

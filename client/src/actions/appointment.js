@@ -1,13 +1,13 @@
-import { CREATE,  DELETE, FETCH_BY_ID, FETCH_ALL } from '../constants/actionTypes';
+import { DELETE, FETCH_BY_ID, FETCH_APPOINTMENTS, CREATE_APPOINTMENT } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
 
-export const getAppointments = () => async (dispatch) => {
+export const fetchAppointments = (id) => async (dispatch) => {
     try {
-      const { data } = await api.fetchCategorys();
-  
-      dispatch({ type: FETCH_ALL, payload: data });
+      const { data } = await api.fetchAppointments(id);
+    
+      dispatch({ type : FETCH_APPOINTMENTS, payload: data })
     } catch (error) {
       console.log(error.message);
     }
@@ -23,11 +23,11 @@ export const getAppointmentByID = (id, appointment_id) => async (dispatch) => {
   }
 };
 
-export const createAppointment = (appointment) => async (dispatch) => {
+export const createAppointment = (id ,appointment) => async (dispatch) => {
   try {
-    const { data } = await api.createAppointment(appointment);
+    const  data  = await api.createAppointment(id, appointment);
 
-    dispatch({ type: CREATE, payload: data });
+    dispatch({ type: CREATE_APPOINTMENT, payload: data.data });
   } catch (error) {
     console.log(error.message);
   }

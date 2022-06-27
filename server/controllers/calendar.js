@@ -17,10 +17,10 @@ export const createCalendar = async (req, res) => {
 
 }
 
-export const getCalendar = async (req, res) => {
-
+export const getCalendarByExpertID = async (req, res) => {
+    const { id } = req.params
     try{
-        const calendar = await Calendar.find();
+        const calendar = await Calendar.find( {id_expert : id} );
 
         res.status(200).json(calendar);
     } catch (error){

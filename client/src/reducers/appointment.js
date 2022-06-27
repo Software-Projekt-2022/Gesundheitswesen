@@ -1,15 +1,11 @@
-import { CREATE, DELETE, FETCH_BY_ID, FETCH_ALL } from '../constants/actionTypes';
+import {  CREATE_APPOINTMENT,  FETCH_APPOINTMENTS } from '../constants/actionTypes';
 
 export default (appointment = [], action) => {
     switch (action.type) {
-      case CREATE:
+      case CREATE_APPOINTMENT:
         return [...appointment, action.payload];
-        case FETCH_ALL:
-            return action.payload;
-      case DELETE:
-        return appointment.filter((appointment) => appointment._id !== action.payload);
-        case FETCH_BY_ID:
-            return { calendar: action.payload.calendar}
+      case FETCH_APPOINTMENTS:
+        return action.payload;
       default:
         return appointment;
     }

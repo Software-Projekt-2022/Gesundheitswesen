@@ -11,6 +11,7 @@ const Categorys = () => {
     const categorys = useSelector((state) => state.categorys);
 
 
+
     
     return (
         !categorys.length ? <CircularProgress /> : (

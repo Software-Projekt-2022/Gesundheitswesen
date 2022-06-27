@@ -1,7 +1,10 @@
 /* Scheduling Component */
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import { Scheduler, WeekView, MonthView, Appointments,  Toolbar, DateNavigator , TodayButton } from '@devexpress/dx-react-scheduler-material-ui';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import { createAppointment } from "../../actions/appointment";
+
 
 import RadioButtonGroup from '../common/RadioButtonGroup';
 
@@ -11,18 +14,22 @@ import Stack from '@mui/material/Stack';
 
 import ComboBoxDay from '../common/ComboBoxDay';
 import ComboBoxTime from '../common/ComboBoxTime';
-import DaysEnum from '../common/DaysEnum';
+import DaysEnum from '../enums/DaysEnum';
 import TimeHelper from './TimeHelper';
 import { Button, Typography } from '@mui/material';
 import CalendarConfigurator from './CalendarConfigurator';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import ComboboxReason from '../common/ComboBoxReason';
 
 
 /**
  * 
  * 
  */
-const Calendar = ( {id} ) => {
+const Calendar = ( {id, appointmentData} ) => {
+
+
+  const dispatch = useDispatch();
 
   const {calendar} = useSelector((state) => state);
 
@@ -30,13 +37,18 @@ const Calendar = ( {id} ) => {
 
   let calendarAvail = undefined;
   
-  let endDayHour, startDayHour, cellDuration, excludedDays  = undefined
+  let endDayHour, startDayHour, cellDuration = undefined
+  let excludedDays =[]
 
   if(specificCalendar !== undefined){
     calendarAvail = true
-    endDayHour = specificCalendar.endDayHour
-    startDayHour = specificCalendar.startDayHour
-    cellDuration = specificCalendar.cellDuration
+    try{
+      endDayHour = parseFloat(specificCalendar.endDayHour)
+      startDayHour = parseFloat(specificCalendar.startDayHour)
+      cellDuration = parseInt(specificCalendar.cellDuration)
+    } catch (e){
+      console.log(e)
+    }
     excludedDays = specificCalendar.excludedDays.split(''
     ).map((letter, index) => {
       if(letter === "1") return index.toString()
@@ -45,27 +57,35 @@ const Calendar = ( {id} ) => {
   }
 
 
-
+    useEffect(() => {
+      setApData(appointmentData)
+    }, [dispatch, appointmentData]);
+    
     /** Radiobutton Hook for CalenderTyp */
     const [calendarType, setCalendarType] = useState( { type: "week" } )
 
-    /** ComboBoxDay Hook for choosed Day*/
+    /** ComboBoxDay Hook for choosed Day / Appointments*/
+    const [appointments, setAppointments] = useState(null)
+
+    /** ComboboxDay Hook Real Date */
     const [day, setDay] = useState(null)
 
     /** Data Hook for the current Time */
     const [currendDate, setCurrentDay] = useState("2018-07-25")
 
     /** Data Hook for loadet Data */
-    const [apData, setApData] = useState( appointmentDemoData )
+    const [apData, setApData] = useState( appointmentData )
 
     /** ComboBoxTime Hook for choosen time */
     const [time, setTime] = useState (null)
+
+    /** ComboboxReason Hook */
+    const [reason, setReason] = useState(null)
 
     const buttonValues = [
       {name: 'week', label: 'Woche'},
       {name: "month", label: "Monat"}
     ]
-
   
     /**
      * 
@@ -76,8 +96,9 @@ const Calendar = ( {id} ) => {
      */
     const getChoosedDay = (date, day) => {
       // We need the middle, cause the day the calendar used to do this
-      const middle = Math.round((7 - excludedDays.length) / 2);
-      const dayValueFromMid = DaysEnum[day] - DaysEnum[DaysEnum[middle]]
+      const middle = Math.round((7 - excludedDays.length) / 2) + 1;
+      // Maybe only wednesday is enough ?!
+      const dayValueFromMid = DaysEnum[day] - DaysEnum["Mittwoch"]
       let choosedDay = new Date(date)
       // set the choosen day from the checkbox
       choosedDay.setDate(choosedDay.getDate() + dayValueFromMid)
@@ -106,7 +127,10 @@ const Calendar = ( {id} ) => {
      * Hook @see day 
      * ComboBoxTime
      */
-    const dayIsSet = (day) => setDay(getAppointments(getChoosedDay(currendDate, day)));
+    const dayIsSet = (day) => {
+      setDay(getChoosedDay(currendDate, day));
+      setAppointments(getAppointments(getChoosedDay(currendDate, day)));
+    } 
     
     /**
      * @param {RadioButtonGroupEvent} e will be either month or week
@@ -115,6 +139,8 @@ const Calendar = ( {id} ) => {
      * RadioButtonGroup
      */
     const valueChanged = (e) => setCalendarType({...setCalendarType, type : e.target.value });
+
+    const reasonIsSet = (reason) => setReason(reason);
      
     /**
      * 
@@ -131,6 +157,38 @@ const Calendar = ( {id} ) => {
         ).filter((it) => (!excludedDays.includes(it.toString()))
       ).map(it => (
       it.toString()));
+
+      const dispatchAppointment = (e) => {
+ 
+
+        const creator = window.localStorage.getItem("EMAIL")
+
+        if(creator === null) return
+
+        const createDate = (time) => {
+          const specificTime = time.split(":");
+          const date = new Date(day);
+          date.setHours(parseInt(specificTime[0]), parseInt(specificTime[1], 0))
+          return date;
+        }
+
+        const startEnd = time.split(" - ")
+        const startDate = createDate(startEnd[0])
+        const endDate = createDate(startEnd[1])
+
+        const appointment ={
+          id_expert : id,
+          startdate : startDate,
+          enddate : endDate,
+          reason : reason,
+          creator : creator
+        }
+
+        dispatch(createAppointment(id, appointment))
+      }
+
+
+     
 
 
     return (
@@ -170,33 +228,37 @@ const Calendar = ( {id} ) => {
         <TodayButton />
       </Scheduler>
 
-      <Stack direction="row" spacing={5} marginTop="70px" justifyContent="center" alignContent="center">        
-                          
-        <ComboBoxDay 
-            days={includedDays}
-            onValueChange={(e) => dayIsSet(e)}
-            />
+      {calendarType.type !== "week" ? <></> : <Stack visibility={false} direction="row" spacing={5} marginTop="70px" justifyContent="center" alignContent="center">        
+                            
+            <ComboBoxDay 
+                days={includedDays}
+                onValueChange={(e) => dayIsSet(e)}
+                />
+  
+              <ComboBoxTime 
+                label={"Uhrzeit"}
+                startHour={startDayHour}
+                endHour={endDayHour}
+                timespan={cellDuration}
+                disabledOptions={appointments ? appointments: null}
+                onChange={(e) => timeIsSet(e)}
+                />
 
-          <ComboBoxTime 
-            label={"Uhrzeit"}
-            startHour={startDayHour}
-            endHour={endDayHour}
-            timespan={cellDuration}
-            disabledOptions={day ? day: null}
-            onChange={(e) => timeIsSet( e )}
-            />
-
-        <Button 
-            disabled={time ? false : true} 
-            onSubmit={(e) => console.log(e)} 
-            variant="contained" 
-            color="primary" 
-            size="large" 
-            type="submit">
-                Bestätigen
-        </Button>
-
-        </Stack>
+                <ComboboxReason 
+                  disabled={time ? false : true} 
+                  onValueChange={(e) => reasonIsSet(e)}/>
+  
+            <Button 
+                disabled={reason ? false : true} 
+                onClick={(e) => dispatchAppointment(e)} 
+                variant="contained" 
+                color="primary" 
+                size="large" 
+                type="submit">
+                    Bestätigen
+            </Button>
+  
+            </Stack>}
     </Container>);
 }
 
