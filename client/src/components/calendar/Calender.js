@@ -8,7 +8,6 @@ import { createAppointment } from "../../actions/appointment";
 
 import RadioButtonGroup from '../common/RadioButtonGroup';
 
-import appointmentDemoData from "../../demo/appointments"
 import { Container } from '@material-ui/core';
 import Stack from '@mui/material/Stack';
 
@@ -22,10 +21,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import ComboboxReason from '../common/ComboBoxReason';
 
 
-/**
- * 
- * 
- */
 const Calendar = ( {id, appointmentData} ) => {
 
 
@@ -33,18 +28,18 @@ const Calendar = ( {id, appointmentData} ) => {
 
   const calendar = useSelector((state) => state.CalendarReducer);
 
-  console.log(calendar)
-
   let calendarAvail = undefined;
   
   let endDayHour, startDayHour, cellDuration = undefined
   let excludedDays =[]
 
   if(calendar.length > 0){
+    /** Our store could have more than one calendar */
     const specificCalendar = calendar.find((data) => data.id_expert === id)
     if(specificCalendar !== undefined){
       calendarAvail = true
       try{
+        /** extract data */
         endDayHour = parseFloat(specificCalendar.endDayHour)
         startDayHour = parseFloat(specificCalendar.startDayHour)
         cellDuration = parseInt(specificCalendar.cellDuration)
