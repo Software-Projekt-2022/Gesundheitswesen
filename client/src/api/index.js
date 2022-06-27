@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 
-const url = 'http://localhost:5000'
-//const url = 'https://gesundheitswesen.cyber-city.systems/api'
+//const url = 'http://localhost:5000'
+const url = 'https://gesundheitswesen.cyber-city.systems/api'
 const categoryUrl = `${url}/category`
 const expertUrl = `${url}/expert`
 const appointmentURL = `${url}/appointment`

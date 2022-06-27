@@ -20,10 +20,10 @@ app.use(cors());
 
 
 
-app.use('/expert', expertRoutes)
-app.use('/category', categoryRoutes)
-app.use('/appointment', appointmentRoutes)
-app.use('/calendar', calendarRoutes)
+app.use('/api/expert', expertRoutes)
+app.use('/api/category', categoryRoutes)
+app.use('/api/appointment', appointmentRoutes)
+app.use('/api/calendar', calendarRoutes)
 
 
 /**
@@ -38,4 +38,4 @@ mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: tr
 
 
 const swaggerDocument = YAML.load('./swagger-cc.yaml');
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
