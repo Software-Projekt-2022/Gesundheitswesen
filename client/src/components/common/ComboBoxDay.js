@@ -11,7 +11,7 @@ import DaysEnum from '../enums/DaysEnum.js';
  * @param { Array }  of String, of the Days  that are excluded
  * @param { * } callBackFunction
  */
-const ComboBoxDay = ( {days, onValueChange} ) => {
+const ComboBoxDay = ( {days, onValueChange, value} ) => {
   const [day, setDay] = useState('');
 
 
@@ -26,9 +26,9 @@ const ComboBoxDay = ( {days, onValueChange} ) => {
       <FormControl fullWidth>
         <InputLabel>Tag</InputLabel>
         <Select
-          value={day}
+          value={value}
           label="Age"
-          onChange={handleChange}
+          onChange={(event, value) => onValueChange(value)}
         >
         {
         Object.entries(DaysEnum

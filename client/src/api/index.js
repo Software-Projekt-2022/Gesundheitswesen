@@ -1,12 +1,13 @@
 import axios from 'axios';
 
 
-//const url = 'http://localhost:5000'
+//const url = 'http://localhost:5000/api'
 const url = 'https://gesundheitswesen.cyber-city.systems/api'
 const categoryUrl = `${url}/category`
 const expertUrl = `${url}/expert`
 const appointmentURL = `${url}/appointment`
 const calendarURL = `${url}/calendar`
+const authURL = "https://auth.cyber-city.systems/api"
 
 
 export const fetchCategorys = () => axios.get(categoryUrl);
@@ -31,3 +32,6 @@ export const fetchCalendarByID = (id) => axios.get(`${calendarURL}/${id}`);
 export const fetchCalendarByExpertID = (id) => axios.get(`${calendarURL}/${id}`)
 export const updateCalendar = (id) => axios.patch(`${calendarURL}/${id}`);
 export const deleteCalendar = (id) => axios.delete(`${calendarURL}/${id}`);
+
+export const checkCookie = (config) => axios.get(`${authURL}/validate_token`, config);
+
