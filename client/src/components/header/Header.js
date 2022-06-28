@@ -11,8 +11,10 @@ import { COOKIE } from '../../constants/actionTypes';
 
 const Header = () => {
 
-    const removeCookie = () => Cookies.remove(COOKIE)
-
+    const removeCookie = () =>{
+        Cookies.remove(COOKIE)
+        window.location.replace('http://cyber-city.systems/')
+    } 
   const classes = useStyles();
         
     return(
@@ -37,7 +39,7 @@ const Header = () => {
                         
                         <Button
                             className={classes.logoutButton} 
-                            onClick={() => removeCookie}
+                            onClick={() => removeCookie()}
                             variant='contained' color="success">Logout
                         </Button>
                         </Stack>
