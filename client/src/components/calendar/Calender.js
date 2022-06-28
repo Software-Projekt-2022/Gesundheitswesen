@@ -93,10 +93,10 @@ const Calendar = ( {id, appointmentData} ) => {
      * @returns Date 
      */
     const getChoosedDay = (date, day) => {
-      const dayValueFromMid = DaysEnum[day] - DaysEnum[DaysEnum[currendDate.getDay()]]
+      const diff =  DaysEnum[day] - date.getDay()
       let choosedDay = new Date(date)
       // set the choosen day from the checkbox
-      choosedDay.setDate(choosedDay.getDate() + dayValueFromMid)
+      choosedDay.setDate(choosedDay.getDate() + diff)
       return choosedDay
     }
 
@@ -122,12 +122,10 @@ const Calendar = ( {id, appointmentData} ) => {
      * Hook @see day 
      * ComboBoxTime
      */
-    const dayIsSet = (day) => {
-      console.log(day.props.value)
-      const value = DaysEnum[day.props.value]
-      setDay(value);
-      console.log(day)
-      setAppointments(getAppointments(getChoosedDay(currendDate, day)));
+    const dayIsSet = (v) => {
+      const value = v.props.value
+      setDay(value.toString());  
+      setAppointments(getAppointments(getChoosedDay(currendDate, DaysEnum[value])));
     } 
     
     /**
@@ -167,8 +165,7 @@ const Calendar = ( {id, appointmentData} ) => {
 
         const createDate = (time) => {
           const specificTime = time.split(":");
-          console.log(day)
-          const date = new Date(day);
+          const date = new Date(getChoosedDay(currendDate, DaysEnum[day]));
           date.setHours(parseInt(specificTime[0]), parseInt(specificTime[1], 0))
           return date;
         }
@@ -184,13 +181,12 @@ const Calendar = ( {id, appointmentData} ) => {
           reason : reason,
           creator : creator
         }
-        console.log(appointment)
 
         dispatch(createAppointment(id, appointment))
         /** clear */
+        setDay('')
         reasonIsSet(null)
         timeIsSet(null)
-        dayIsSet(null)
       }
 
 
