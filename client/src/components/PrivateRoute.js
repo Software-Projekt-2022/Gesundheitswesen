@@ -14,14 +14,18 @@ const PrivateRoute = ({ component: Component, open, ...rest}) => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.AuthReducer);
 
+
   useEffect(() => {
     dispatch(isAuthenticated())
   }, [auth, dispatch]);
+
 
   const target = "https://gesundheitswesen.cyber-city.systems/"
   const redirect = `https://cyber-city.systems/login?target=${target}`
 
   console.log(auth)
+  
+  isAuthenticated();
 
   if(open){
     return(
@@ -44,5 +48,7 @@ const PrivateRoute = ({ component: Component, open, ...rest}) => {
   />
   )
 }
+
+//: window.location.replace(redirect)
 
   export default PrivateRoute;

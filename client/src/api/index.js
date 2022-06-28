@@ -34,3 +34,4 @@ export const updateCalendar = (id) => axios.patch(`${calendarURL}/${id}`);
 export const deleteCalendar = (id) => axios.delete(`${calendarURL}/${id}`);
 
 export const checkCookie = (config) => axios.get(`${authURL}/validate_token`, config);
+
