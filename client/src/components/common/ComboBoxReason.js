@@ -1,7 +1,7 @@
 import { Autocomplete, TextField } from "@mui/material";
 import ReasonEnum from "../enums/ReasonEnum";
 
-const ComboboxReason = ( { disabled ,onValueChange } ) => {
+const ComboboxReason = ( { disabled ,onValueChange, value } ) => {
     if(disabled) return
     return (
         <Autocomplete
@@ -9,6 +9,7 @@ const ComboboxReason = ( { disabled ,onValueChange } ) => {
             sx={{ width: 200 }}
             renderInput={(params) => <TextField  {...params} label="Grund" />}
             onChange={(event, value) => onValueChange(value)} 
+            value={value}
         />
       );
 }

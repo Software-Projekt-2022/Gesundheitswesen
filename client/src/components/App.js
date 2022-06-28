@@ -12,9 +12,23 @@ import SpecificExpert from "./experts/specific_expert/SpecificExpert.js"
 
 const App = () => {
 
+    const offline = true
+
+
+    if(offline)
+    return (
+        <BrowserRouter>
+            <Header />
+            <Switch>
+                <Route exact path='/' component={Home}/>
+                <Route path='/categorys' component={CategoryPage}/>
+                <Route path='/experts' exact component={ExpertPage}/>
+                <Route path='/experts/:id' exact component={SpecificExpert}/>
+            </Switch>
+        </BrowserRouter>
+    )
 
     return (
-        
         <BrowserRouter>
             <Header />
             <Switch>

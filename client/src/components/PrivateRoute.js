@@ -47,6 +47,8 @@ const PrivateRoute = ({ component: Component, ...rest}) => {
 
   console.log(auth)
 
+  isAuthenticated()
+
   return (
     <Route
     {...rest}

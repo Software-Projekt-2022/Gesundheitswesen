@@ -28,7 +28,7 @@ const ComboBoxDay = ( {days, onValueChange} ) => {
         <Select
           value={day}
           label="Age"
-          onChange={handleChange}
+          onChange={(event, value) => onValueChange(value)}
         >
         {
         Object.entries(DaysEnum

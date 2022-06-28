@@ -12,12 +12,12 @@ import TimeHelper from "../calendar/TimeHelper";
  * @param { CallableFunction } onChange when the button is clicked and changed
  * @returns 
  */
-const ComboBoxTime = (  {disabledOptions, label, startHour, endHour, timespan, onChange}  ) => {
+const ComboBoxTime = (  {disabledOptions, label, startHour, endHour, timespan, onChange, value}  ) => {
 
     /** calculated amount of cells of the displayed calendar */
     const availableoptions = Math.ceil((endHour - startHour) * 60 / timespan)
 
-    const replaceZero = (value) => value === 0 ? "00" : value.toFixed(0)
+    const replaceZero = (value) => value <= 9 ?  `0${value.toFixed(0)}` : value.toFixed(0)
 
     /** creating our displayed options */
     const optionObj = TimeHelper.listOfTimeSlots(startHour, timespan, availableoptions)
@@ -68,6 +68,7 @@ const ComboBoxTime = (  {disabledOptions, label, startHour, endHour, timespan, o
                 sx={{ width: 200 }}
                 renderInput={(params) => <TextField  {...params} label={label} />}
                 onChange={(event, value) => onChange(value)} 
+                value={value}
                 />
     );
 }

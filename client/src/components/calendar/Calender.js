@@ -19,6 +19,7 @@ import { Button, Typography } from '@mui/material';
 import CalendarConfigurator from './CalendarConfigurator';
 import { useSelector, useDispatch } from 'react-redux';
 import ComboboxReason from '../common/ComboBoxReason';
+import { EMAIL } from '../../constants/actionTypes';
 
 
 const Calendar = ( {id, appointmentData} ) => {
@@ -65,10 +66,10 @@ const Calendar = ( {id, appointmentData} ) => {
     const [appointments, setAppointments] = useState(null)
 
     /** ComboboxDay Hook Real Date */
-    const [day, setDay] = useState(null)
+    const [day, setDay] = useState('')
 
     /** Data Hook for the current Time */
-    const [currendDate, setCurrentDay] = useState("2018-07-25")
+    const [currendDate, setCurrentDay] = useState(new Date())
 
     /** Data Hook for loadet Data */
     const [apData, setApData] = useState( appointmentData )
@@ -92,10 +93,7 @@ const Calendar = ( {id, appointmentData} ) => {
      * @returns Date 
      */
     const getChoosedDay = (date, day) => {
-      // We need the middle, cause the day the calendar used to do this
-      const middle = Math.round((7 - excludedDays.length) / 2) + 1;
-      // Maybe only wednesday is enough ?!
-      const dayValueFromMid = DaysEnum[day] - DaysEnum["Mittwoch"]
+      const dayValueFromMid = DaysEnum[day] - DaysEnum[DaysEnum[currendDate.getDay()]]
       let choosedDay = new Date(date)
       // set the choosen day from the checkbox
       choosedDay.setDate(choosedDay.getDate() + dayValueFromMid)
@@ -125,7 +123,10 @@ const Calendar = ( {id, appointmentData} ) => {
      * ComboBoxTime
      */
     const dayIsSet = (day) => {
-      setDay(getChoosedDay(currendDate, day));
+      console.log(day.props.value)
+      const value = DaysEnum[day.props.value]
+      setDay(value);
+      console.log(day)
       setAppointments(getAppointments(getChoosedDay(currendDate, day)));
     } 
     
@@ -158,12 +159,15 @@ const Calendar = ( {id, appointmentData} ) => {
       const dispatchAppointment = (e) => {
  
 
-        const creator = window.localStorage.getItem("EMAIL")
+        //const creator = window.localStorage.getItem(EMAIL)
+
+        const creator = "TestCreator"
 
         if(creator === null) return
 
         const createDate = (time) => {
           const specificTime = time.split(":");
+          console.log(day)
           const date = new Date(day);
           date.setHours(parseInt(specificTime[0]), parseInt(specificTime[1], 0))
           return date;
@@ -180,8 +184,13 @@ const Calendar = ( {id, appointmentData} ) => {
           reason : reason,
           creator : creator
         }
+        console.log(appointment)
 
         dispatch(createAppointment(id, appointment))
+        /** clear */
+        reasonIsSet(null)
+        timeIsSet(null)
+        dayIsSet(null)
       }
 
 
@@ -230,6 +239,7 @@ const Calendar = ( {id, appointmentData} ) => {
             <ComboBoxDay 
                 days={includedDays}
                 onValueChange={(e) => dayIsSet(e)}
+                value={day}
                 />
   
               <ComboBoxTime 
@@ -239,6 +249,7 @@ const Calendar = ( {id, appointmentData} ) => {
                 timespan={cellDuration}
                 disabledOptions={appointments ? appointments: null}
                 onChange={(e) => timeIsSet(e)}
+                value={time}
                 />
 
                 <ComboboxReason 
