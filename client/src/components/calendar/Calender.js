@@ -19,7 +19,6 @@ import { Button, Typography } from '@mui/material';
 import CalendarConfigurator from './CalendarConfigurator';
 import { useSelector, useDispatch } from 'react-redux';
 import ComboboxReason from '../common/ComboBoxReason';
-import { EMAIL } from '../../constants/actionTypes';
 
 
 const Calendar = ( {id, appointmentData} ) => {

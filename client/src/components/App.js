@@ -32,7 +32,7 @@ const App = () => {
         <BrowserRouter>
             <Header />
             <Switch>
-                <PrivateRoute exact path='/' component={Home} open ={true}/>
+                <PrivateRoute exact path='/' component={Home} open ="true"/>
                 <PrivateRoute path='/categorys' component={CategoryPage}/>
                 <PrivateRoute path='/experts' exact component={ExpertPage}/>
                 <PrivateRoute path='/experts/:id' exact component={SpecificExpert}/>
