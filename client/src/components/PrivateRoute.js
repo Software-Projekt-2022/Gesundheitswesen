@@ -20,8 +20,10 @@ const PrivateRoute = ({ component: Component, ...rest}) => {
 
     const coookie = Cookies.get(COOKIE)
     console.log(coookie)
-    if(coookie === undefined)
-      return false
+    if(coookie === undefined){
+      setAuthentication(false)
+      return false 
+    }
     const config = {
         headers: {
           'Authorization': coookie
@@ -53,11 +55,13 @@ const PrivateRoute = ({ component: Component, ...rest}) => {
     <Route
     {...rest}
     render={props => (
-      auth ? <Component {...props} />
-      : window.location.replace(redirect)
+       <Component {...props} />
+      
     )}
   />
   )
 }
+
+//: window.location.replace(redirect)
 
   export default PrivateRoute;
