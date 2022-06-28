@@ -12,7 +12,7 @@ import SpecificExpert from "./experts/specific_expert/SpecificExpert.js"
 
 const App = () => {
 
-    const offline = true
+    const offline = false
 
 
     if(offline)
@@ -32,7 +32,7 @@ const App = () => {
         <BrowserRouter>
             <Header />
             <Switch>
-                <PrivateRoute exact path='/' component={Home}/>
+                <PrivateRoute exact path='/' component={Home} open ={true}/>
                 <PrivateRoute path='/categorys' component={CategoryPage}/>
                 <PrivateRoute path='/experts' exact component={ExpertPage}/>
                 <PrivateRoute path='/experts/:id' exact component={SpecificExpert}/>

@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 
 
 
-const PrivateRoute = ({ component: Component, ...rest}) => {
+const PrivateRoute = ({ component: Component, open, ...rest}) => {
 
 
   const authURL = "https://auth.cyber-city.systems/api"
@@ -39,7 +39,6 @@ const PrivateRoute = ({ component: Component, ...rest}) => {
       } catch (e) {
         console.log(e)
       }
-      
   }
 
   const target = "https://gesundheitswesen.cyber-city.systems/"
@@ -48,6 +47,17 @@ const PrivateRoute = ({ component: Component, ...rest}) => {
   console.log(auth)
 
   isAuthenticated()
+
+  if(open){
+    return(
+      <Route
+      {...rest}
+      render={props => (
+         <Component {...props} />
+      )}
+    />
+    )
+  }
 
   return (
     <Route
